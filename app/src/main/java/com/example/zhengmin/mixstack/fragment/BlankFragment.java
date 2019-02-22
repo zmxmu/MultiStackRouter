@@ -9,16 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.zhengmin.mixstack.R;
+import com.example.zhengmin.mixstack.base.RouterManager;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link BlankFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link BlankFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class BlankFragment extends Fragment {
+
+public class BlankFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -47,7 +41,17 @@ public class BlankFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blank, container, false);
+        View view = inflater.inflate(R.layout.fragment_blank, container, false);
+        view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle =  new Bundle();
+                bundle.putString("key","abc");
+                RouterManager.getInstance().jumpTo(getActivity(),"com.example.zhengmin.mixstack.fragment.BlankFragment2",
+                        RouterManager.ROUTER_TYPE_NORMAL,bundle);
+            }
+        });
+        return view;
     }
 
 
