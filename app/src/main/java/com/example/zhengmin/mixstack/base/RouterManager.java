@@ -16,9 +16,6 @@ import java.util.Stack;
  */
 
 public class RouterManager {
-    public static final int ROUTER_TYPE_NORMAL = 0;
-    public static final int ROUTER_TYPE_SINGLE = 1;
-    public static final int ROUTER_TYPE_CLEAR = 2;
 
     public static final String BUNDLE_KEY_FRAGMENT = "fragmentCls";
     public static final String BUNDLE_KEY_PARAMS = "params";
@@ -59,47 +56,22 @@ public class RouterManager {
         }
         return result;
     }
-    public boolean jumpTo(Context context,String path, int routerType, Bundle bundle){
-        boolean result = false;
+    public boolean jumpTo(Context context,String path, JumpAction action, Bundle bundle){
         Class clz;
         try {
             clz = Class.forName(path);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            return result;
+            return false;
         }
         int itemType = getItemType(clz);
 
         if(itemType == RouterItem.ROUTER_TYPE_NONE){
             return false;
         }
-        switch (routerType){
-            case ROUTER_TYPE_NORMAL:
-                switch (itemType){
-                    case RouterItem.ROUTER_TYPE_ACTIVITY:
-                        startNewActivity(context,path,bundle);
-                        break;
-                    case RouterItem.ROUTER_TYPE_FRAGMENT:
-                        BaseFragmentActivity baseFragmentActivity = getLastContainer();
-                        if(baseFragmentActivity!=null){
-                            baseFragmentActivity.addFragment(bundle,path);
-                        }
-                        else{
-                            Intent intent = new Intent(context,BaseFragmentActivity.class);
-                            if(bundle == null){
-                                bundle = new Bundle();
-                            }
-                            bundle.putString(BUNDLE_KEY_FRAGMENT,path);
-                            intent.putExtras(bundle);
-                            context.startActivity(intent,bundle);
-                        }
-                        break;
-                }
-                break;
-        }
-        return result;
+        return action.gotoNewPage(context,path,bundle,itemType);
     }
-    private void startNewActivity(Context context,String path,Bundle bundle){
+    public void startNewActivity(Context context,String path,Bundle bundle){
         Intent intent = new Intent();
         ComponentName componentName = new ComponentName(context.getClass().getName(),path);
         intent.setComponent(componentName);

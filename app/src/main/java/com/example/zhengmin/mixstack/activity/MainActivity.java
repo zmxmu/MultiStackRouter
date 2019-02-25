@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.zhengmin.mixstack.R;
+import com.example.zhengmin.mixstack.base.NormalJumpAction;
 import com.example.zhengmin.mixstack.base.RouterManager;
 
 public class MainActivity extends Activity {
@@ -22,7 +23,7 @@ public class MainActivity extends Activity {
                 bundle.putString("key","test");
                 RouterManager.getInstance().jumpTo(MainActivity.this,
                         "com.example.zhengmin.mixstack.fragment.BlankFragment",
-                        RouterManager.ROUTER_TYPE_NORMAL,bundle);
+                        new NormalJumpAction(),bundle);
             }
         });
     }

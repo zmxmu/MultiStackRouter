@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.zhengmin.mixstack.R;
+import com.example.zhengmin.mixstack.base.NormalJumpAction;
 import com.example.zhengmin.mixstack.base.RouterManager;
 
 
@@ -48,7 +49,7 @@ public class BlankFragment extends BaseFragment {
                 Bundle bundle =  new Bundle();
                 bundle.putString("key","abc");
                 RouterManager.getInstance().jumpTo(getActivity(),"com.example.zhengmin.mixstack.fragment.BlankFragment2",
-                        RouterManager.ROUTER_TYPE_NORMAL,bundle);
+                        new NormalJumpAction(),bundle);
             }
         });
         return view;
