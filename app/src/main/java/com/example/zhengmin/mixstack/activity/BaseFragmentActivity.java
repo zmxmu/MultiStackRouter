@@ -19,6 +19,7 @@ import java.lang.reflect.Constructor;
 
 public class BaseFragmentActivity extends Activity {
     public static final int ANIMATION_DURATION = 300;
+    private int mFragmentWidth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,7 @@ public class BaseFragmentActivity extends Activity {
             addFragment(bundle
                     , bundle.getString(RouterManager.BUNDLE_KEY_FRAGMENT));
         }
+        mFragmentWidth = getFragmentWidth();
     }
     private BaseFragment getFragment(String className) {
         try {
@@ -43,56 +45,52 @@ public class BaseFragmentActivity extends Activity {
      * 新加页面
      */
     public void addFragment(Bundle bundle, String className) {
-        BaseFragment newFragment = getFragment(className);
-        BaseFragment finalExitFragment = RouterManager.getInstance().getTopFragment();
-        if (newFragment == null) {
+        final BaseFragment enterFragment = getFragment(className);
+        final BaseFragment exitFragment = RouterManager.getInstance().getTopFragment();
+        if (enterFragment == null) {
             return;
         }
         if (bundle == null) {
             bundle = new Bundle();
         }
 
-        newFragment.setArguments(bundle);
+        enterFragment.setArguments(bundle);
 
-        getFragmentManager().beginTransaction().add(R.id.content, newFragment).commitAllowingStateLoss();
-        if(finalExitFragment!=null){
-            transformAnimation(finalExitFragment,newFragment);
+        getFragmentManager().beginTransaction().add(R.id.content, enterFragment).commitAllowingStateLoss();
+        if(exitFragment!=null){
+            final ValueAnimator valueAnimator = ValueAnimator.ofInt(mFragmentWidth, 0).setDuration(ANIMATION_DURATION);
+            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    int value = (int) animation.getAnimatedValue();
+                    if (exitFragment != null && exitFragment.getView() != null) {
+                        exitFragment.getView().setX(value - mFragmentWidth);
+                    }
+                    if (enterFragment != null && enterFragment.getView() != null) {
+                        enterFragment.getView().setX(value);
+                    }
+                }
+            });
+
+            valueAnimator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    valueAnimator.removeListener(this);
+                    valueAnimator.removeAllUpdateListeners();
+                    if (exitFragment != null) {
+                        exitFragment.onHide();
+                        getFragmentManager().beginTransaction().hide(exitFragment).commitAllowingStateLoss();
+                    }
+                    if (enterFragment != null) {
+                        enterFragment.onShow();
+                    }
+                }
+            });
+
+            valueAnimator.start();
         }
     }
-    private void transformAnimation(final BaseFragment exitFragment, final BaseFragment enterFragment ){
-        final int width = getFragmentWidth();
 
-        final ValueAnimator valueAnimator = ValueAnimator.ofInt(width, 0).setDuration(ANIMATION_DURATION);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int value = (int) animation.getAnimatedValue();
-                if (exitFragment != null && exitFragment.getView() != null) {
-                    exitFragment.getView().setX(value - width);
-                }
-                if (enterFragment != null && enterFragment.getView() != null) {
-                    enterFragment.getView().setX(value);
-                }
-            }
-        });
-
-        valueAnimator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                valueAnimator.removeListener(this);
-                valueAnimator.removeAllUpdateListeners();
-                if (exitFragment != null) {
-                    exitFragment.onHide();
-                    getFragmentManager().beginTransaction().hide(exitFragment).commitAllowingStateLoss();
-                }
-                if (enterFragment != null) {
-                    enterFragment.onShow();
-                }
-            }
-        });
-
-        valueAnimator.start();
-    }
     private int getFragmentWidth() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindow().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -101,29 +99,43 @@ public class BaseFragmentActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        BaseFragment currentFragment = RouterManager.getInstance().getTopFragment();
+        final BaseFragment exitFragment = RouterManager.getInstance().getTopFragment();
+        if (exitFragment == null) {
+            finish();
+        }
+        else{
+            final BaseFragment enterFragment = RouterManager.getInstance().getSubTopFragment();
+            if(enterFragment == null){
+                finish();
+            }
+            else{
+                getFragmentManager().beginTransaction().show(enterFragment).commit();
 
-        if (currentFragment == null) {
-            finish();
-        }
-        else{
-            removeTopFragment();
-        }
-    }
-    private void removeTopFragment(){
-        BaseFragment exitFragment = ((FragmentItem)(RouterManager.getInstance().getStack().pop()))
-                .getFragmentWR().get();
-        BaseFragment enterFragment = RouterManager.getInstance().getTopFragment();
-        if(enterFragment == null){
-            finish();
-        }
-        else{
-            getFragmentManager().beginTransaction().show(enterFragment)
-                    .commit();
-            enterFragment.getView().setX(0);
-            getFragmentManager().beginTransaction().replace(R.id.content,
-                    enterFragment).commit();
-            //transformAnimation(exitFragment,enterFragment);
+                final ValueAnimator valueAnimator = ValueAnimator.ofInt(0,mFragmentWidth).setDuration(ANIMATION_DURATION);
+                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        int value = (int) animation.getAnimatedValue();
+                        if (exitFragment != null && exitFragment.getView() != null) {
+                            exitFragment.getView().setX(value);
+                        }
+                        if (enterFragment != null && enterFragment.getView() != null) {
+                            enterFragment.getView().setX(value - mFragmentWidth);
+                        }
+                    }
+                });
+
+                valueAnimator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        valueAnimator.removeListener(this);
+                        valueAnimator.removeAllUpdateListeners();
+                        getFragmentManager().beginTransaction().remove(exitFragment).commit();
+                    }
+                });
+
+                valueAnimator.start();
+            }
         }
     }
 }

@@ -141,4 +141,25 @@ public class RouterManager {
             return null;
         }
     }
+    public BaseFragment getSubTopFragment(){
+        RouterItem currentItem;
+        if(mStack.size()>2){
+            currentItem = mStack.get(mStack.size()-1);
+            if(currentItem!=null && currentItem.getType() == RouterItem.ROUTER_TYPE_FRAGMENT){
+                currentItem = mStack.get(mStack.size()-2);
+                if(currentItem!=null && currentItem.getType() == RouterItem.ROUTER_TYPE_FRAGMENT){
+                    return ((FragmentItem)currentItem).getFragmentWR().get();
+                }
+                else{
+                    return null;
+                }
+            }
+            else{
+                return null;
+            }
+        }
+        else{
+            return null;
+        }
+    }
 }
