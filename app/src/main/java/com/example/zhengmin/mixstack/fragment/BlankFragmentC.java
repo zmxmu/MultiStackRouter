@@ -11,10 +11,12 @@ import com.example.zhengmin.mixstack.R;
 import com.syswin.msgseal.mixstack.BaseFragment;
 import com.syswin.msgseal.mixstack.RouterManager;
 import com.syswin.msgseal.mixstack.action.SingleGotoAction;
+import com.syswin.msgseal.mixstack.annotation.MixStackRoute;
 
 /**
  * A simple {@link Fragment} subclass.
  */
+@MixStackRoute(url = "BlankFragmentC")
 public class BlankFragmentC extends BaseFragment {
 
 

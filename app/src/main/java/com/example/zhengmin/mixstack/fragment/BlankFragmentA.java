@@ -10,8 +10,9 @@ import com.example.zhengmin.mixstack.R;
 import com.syswin.msgseal.mixstack.BaseFragment;
 import com.syswin.msgseal.mixstack.action.NormalGotoAction;
 import com.syswin.msgseal.mixstack.RouterManager;
+import com.syswin.msgseal.mixstack.annotation.MixStackRoute;
 
-
+@MixStackRoute(url = "BlankFragmentA")
 public class BlankFragmentA extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

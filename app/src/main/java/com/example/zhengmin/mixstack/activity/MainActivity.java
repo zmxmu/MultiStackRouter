@@ -7,7 +7,9 @@ import android.view.View;
 import com.example.zhengmin.mixstack.R;
 import com.syswin.msgseal.mixstack.action.NormalGotoAction;
 import com.syswin.msgseal.mixstack.RouterManager;
+import com.syswin.msgseal.mixstack.annotation.MixStackRoute;
 
+@MixStackRoute(url = "MainActivity")
 public class MainActivity extends Activity {
 
     @Override
