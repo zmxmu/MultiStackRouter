@@ -1,15 +1,13 @@
 package com.example.zhengmin.mixstack.fragment;
 
-import android.app.Fragment;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.zhengmin.mixstack.R;
-import com.example.zhengmin.mixstack.base.NormalJumpAction;
+import com.example.zhengmin.mixstack.base.NormalGotoAction;
 import com.example.zhengmin.mixstack.base.RouterManager;
 
 
@@ -49,7 +47,7 @@ public class BlankFragment extends BaseFragment {
                 Bundle bundle =  new Bundle();
                 bundle.putString("key","abc");
                 RouterManager.getInstance().jumpTo(getActivity(),"com.example.zhengmin.mixstack.fragment.BlankFragment2",
-                        new NormalJumpAction(),bundle);
+                        new NormalGotoAction(),bundle);
             }
         });
         return view;

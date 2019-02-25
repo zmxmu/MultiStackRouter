@@ -56,7 +56,7 @@ public class RouterManager {
         }
         return result;
     }
-    public boolean jumpTo(Context context,String path, JumpAction action, Bundle bundle){
+    public boolean jumpTo(Context context,String path, GotoAction action, Bundle bundle){
         Class clz;
         try {
             clz = Class.forName(path);
@@ -69,7 +69,7 @@ public class RouterManager {
         if(itemType == RouterItem.ROUTER_TYPE_NONE){
             return false;
         }
-        return action.gotoNewPage(context,path,bundle,itemType);
+        return action.gotoPage(context,path,bundle,itemType);
     }
     public void startNewActivity(Context context,String path,Bundle bundle){
         Intent intent = new Intent();

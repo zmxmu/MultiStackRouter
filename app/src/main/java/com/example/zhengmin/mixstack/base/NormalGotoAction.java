@@ -8,9 +8,9 @@ import com.example.zhengmin.mixstack.activity.BaseFragmentActivity;
 
 import static com.example.zhengmin.mixstack.base.RouterManager.BUNDLE_KEY_FRAGMENT;
 
-public class NormalJumpAction implements JumpAction {
+public class NormalGotoAction implements GotoAction {
     @Override
-    public boolean gotoNewPage(Context context, String path, Bundle bundle, int itemType) {
+    public boolean gotoPage(Context context, String path, Bundle bundle, int itemType) {
         switch (itemType){
             case RouterItem.ROUTER_TYPE_ACTIVITY:
                 RouterManager.getInstance().startNewActivity(context,path,bundle);
