@@ -3,6 +3,9 @@ package com.syswin.msgseal.mixstack;
 import android.app.Fragment;
 import android.os.Bundle;
 
+import com.syswin.msgseal.mixstack.model.FragmentItem;
+import com.syswin.msgseal.mixstack.model.RouterItem;
+
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
 import java.util.Stack;

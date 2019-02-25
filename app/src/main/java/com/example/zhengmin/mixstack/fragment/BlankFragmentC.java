@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.example.zhengmin.mixstack.R;
 import com.syswin.msgseal.mixstack.BaseFragment;
 import com.syswin.msgseal.mixstack.RouterManager;
-import com.syswin.msgseal.mixstack.SingleGotoAction;
+import com.syswin.msgseal.mixstack.action.SingleGotoAction;
 
 /**
  * A simple {@link Fragment} subclass.

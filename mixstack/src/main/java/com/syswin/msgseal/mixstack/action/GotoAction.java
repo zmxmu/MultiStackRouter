@@ -1,4 +1,4 @@
-package com.syswin.msgseal.mixstack;
+package com.syswin.msgseal.mixstack.action;
 
 import android.content.Context;
 import android.os.Bundle;

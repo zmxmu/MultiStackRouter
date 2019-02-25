@@ -1,4 +1,6 @@
-package com.syswin.msgseal.mixstack;
+package com.syswin.msgseal.mixstack.model;
+
+import com.syswin.msgseal.mixstack.BaseFragment;
 
 import java.lang.ref.WeakReference;
 

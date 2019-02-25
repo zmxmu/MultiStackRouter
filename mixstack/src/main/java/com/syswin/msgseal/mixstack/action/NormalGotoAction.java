@@ -1,8 +1,12 @@
-package com.syswin.msgseal.mixstack;
+package com.syswin.msgseal.mixstack.action;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.syswin.msgseal.mixstack.BaseFragmentActivity;
+import com.syswin.msgseal.mixstack.model.RouterItem;
+import com.syswin.msgseal.mixstack.RouterManager;
 
 import static com.syswin.msgseal.mixstack.RouterManager.BUNDLE_KEY_FRAGMENT;
 import static com.syswin.msgseal.mixstack.RouterManager.BUNDLE_KEY_PATH;

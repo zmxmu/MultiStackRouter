@@ -6,6 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.syswin.msgseal.mixstack.action.GotoAction;
+import com.syswin.msgseal.mixstack.model.ActivityItem;
+import com.syswin.msgseal.mixstack.model.FragmentItem;
+import com.syswin.msgseal.mixstack.model.RouterItem;
+
 import java.util.Stack;
 
 /**
@@ -53,7 +58,7 @@ public class RouterManager {
         }
         return result;
     }
-    public boolean goTo(Context context,String path, GotoAction action, Bundle bundle){
+    public boolean goTo(Context context, String path, GotoAction action, Bundle bundle){
         Class clz;
         try {
             clz = Class.forName(path);

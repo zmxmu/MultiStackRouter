@@ -5,6 +5,9 @@ import android.app.Application;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.syswin.msgseal.mixstack.model.ActivityItem;
+import com.syswin.msgseal.mixstack.model.RouterItem;
+
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
 import java.util.Stack;

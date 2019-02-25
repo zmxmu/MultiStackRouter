@@ -1,4 +1,4 @@
-package com.syswin.msgseal.mixstack;
+package com.syswin.msgseal.mixstack.model;
 
 public abstract class RouterItem {
     public static final int ROUTER_TYPE_NONE = 0;
@@ -7,7 +7,7 @@ public abstract class RouterItem {
     public static final int ROUTER_TYPE_CONTAINER = 3;
     private String mRouterPath;
     abstract Object getItem();
-    abstract int getType();
+    public abstract int getType();
     public String getRouterPath(){
         return mRouterPath;
     }
