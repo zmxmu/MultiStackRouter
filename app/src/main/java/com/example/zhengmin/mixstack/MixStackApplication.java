@@ -5,10 +5,10 @@ import android.app.Application;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.example.zhengmin.mixstack.base.BaseFragmentActivity;
-import com.example.zhengmin.mixstack.base.ActivityItem;
-import com.example.zhengmin.mixstack.base.RouterItem;
-import com.example.zhengmin.mixstack.base.RouterManager;
+import com.syswin.msgseal.mixstack.BaseFragmentActivity;
+import com.syswin.msgseal.mixstack.ActivityItem;
+import com.syswin.msgseal.mixstack.RouterItem;
+import com.syswin.msgseal.mixstack.RouterManager;
 
 import java.lang.ref.WeakReference;
 import java.util.Iterator;

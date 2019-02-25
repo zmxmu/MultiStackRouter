@@ -1,11 +1,11 @@
-package com.example.zhengmin.mixstack.base;
+package com.syswin.msgseal.mixstack;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import static com.example.zhengmin.mixstack.base.RouterManager.BUNDLE_KEY_FRAGMENT;
-import static com.example.zhengmin.mixstack.base.RouterManager.BUNDLE_KEY_PATH;
+import static com.syswin.msgseal.mixstack.RouterManager.BUNDLE_KEY_FRAGMENT;
+import static com.syswin.msgseal.mixstack.RouterManager.BUNDLE_KEY_PATH;
 
 public class NormalGotoAction implements GotoAction {
     @Override

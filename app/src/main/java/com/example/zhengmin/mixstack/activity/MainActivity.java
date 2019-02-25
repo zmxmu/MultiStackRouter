@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.zhengmin.mixstack.R;
-import com.example.zhengmin.mixstack.base.NormalGotoAction;
-import com.example.zhengmin.mixstack.base.RouterManager;
+import com.syswin.msgseal.mixstack.NormalGotoAction;
+import com.syswin.msgseal.mixstack.RouterManager;
 
 public class MainActivity extends Activity {
 

@@ -1,4 +1,4 @@
-package com.example.zhengmin.mixstack.base;
+package com.syswin.msgseal.mixstack;
 
 import android.content.Context;
 import android.os.Bundle;

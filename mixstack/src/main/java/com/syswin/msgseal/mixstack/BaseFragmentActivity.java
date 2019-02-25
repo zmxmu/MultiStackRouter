@@ -1,4 +1,4 @@
-package com.example.zhengmin.mixstack.base;
+package com.syswin.msgseal.mixstack;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 
-import com.example.zhengmin.mixstack.R;
 
 import java.lang.reflect.Constructor;
 

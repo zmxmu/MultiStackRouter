@@ -1,4 +1,4 @@
-package com.example.zhengmin.mixstack.base;
+package com.syswin.msgseal.mixstack;
 
 public abstract class RouterItem {
     public static final int ROUTER_TYPE_NONE = 0;
