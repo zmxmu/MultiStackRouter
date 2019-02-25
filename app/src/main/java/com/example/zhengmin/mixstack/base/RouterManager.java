@@ -38,7 +38,7 @@ public class RouterManager {
         int result  = RouterItem.ROUTER_TYPE_NONE;
 
         while(!TextUtils.equals(clz.getSimpleName(),"Object")){
-            if(TextUtils.equals(clz.getSimpleName(),"Fragment")){
+            if(TextUtils.equals(clz.getSimpleName(),"BaseFragment")){
                 return RouterItem.ROUTER_TYPE_FRAGMENT;
             }
             else if(TextUtils.equals(clz.getSimpleName(),"BaseFragmentActivity")){

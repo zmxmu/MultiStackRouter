@@ -32,15 +32,6 @@ public class SingleGotoAction implements GotoAction {
                 if(index>0){
                     BaseFragment fragment = ((FragmentItem)stack.get(index)).getFragmentWR().get();
                     BaseFragmentActivity container = (BaseFragmentActivity)fragment.getActivity();
-                    RouterItem topItem = stack.peek();
-                    if(topItem instanceof FragmentItem) {
-                        BaseFragment topFragment = ((FragmentItem)topItem).getFragmentWR().get();
-                        if(topFragment.getActivity() == container)
-                        {
-                            container.fragmentTransfer(topFragment,fragment);
-                            return true;
-                        }
-                    }
                     for(int i = stack.size()-1;i>index;i--){
                         RouterItem currentItem = stack.get(i);
                         if(currentItem.getType() == RouterItem.ROUTER_TYPE_ACTIVITY

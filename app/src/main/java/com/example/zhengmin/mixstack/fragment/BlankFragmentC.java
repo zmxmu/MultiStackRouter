@@ -38,8 +38,10 @@ public class BlankFragmentC extends BaseFragment {
 //                intent.setComponent(componentName);
                 //intent.putExtras(bundle);
 //                getActivity().startActivity(intent);
-                RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.mixstack.activity.MainActivity",
+                RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.mixstack.fragment.BlankFragmentA",
                         new SingleGotoAction(),bundle);
+//                RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.mixstack.activity.MainActivity",
+//                        new SingleGotoAction(),bundle);
             }
         });
         return view;
