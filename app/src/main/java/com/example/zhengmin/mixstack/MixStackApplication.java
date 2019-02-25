@@ -2,11 +2,10 @@ package com.example.zhengmin.mixstack;
 
 import android.app.Activity;
 import android.app.Application;
-import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.example.zhengmin.mixstack.activity.BaseFragmentActivity;
+import com.example.zhengmin.mixstack.base.BaseFragmentActivity;
 import com.example.zhengmin.mixstack.base.ActivityItem;
 import com.example.zhengmin.mixstack.base.RouterItem;
 import com.example.zhengmin.mixstack.base.RouterManager;

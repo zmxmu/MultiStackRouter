@@ -1,13 +1,7 @@
-package com.example.zhengmin.mixstack.fragment;
+package com.example.zhengmin.mixstack.base;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-
-import com.example.zhengmin.mixstack.base.ActivityItem;
-import com.example.zhengmin.mixstack.base.FragmentItem;
-import com.example.zhengmin.mixstack.base.RouterItem;
-import com.example.zhengmin.mixstack.base.RouterManager;
 
 import java.lang.ref.WeakReference;
 import java.util.Iterator;

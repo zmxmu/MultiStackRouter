@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.zhengmin.mixstack.activity.BaseFragmentActivity;
-
 import static com.example.zhengmin.mixstack.base.RouterManager.BUNDLE_KEY_FRAGMENT;
 import static com.example.zhengmin.mixstack.base.RouterManager.BUNDLE_KEY_PATH;
 

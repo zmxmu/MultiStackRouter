@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.zhengmin.mixstack.R;
+import com.example.zhengmin.mixstack.base.BaseFragment;
 import com.example.zhengmin.mixstack.base.NormalGotoAction;
 import com.example.zhengmin.mixstack.base.RouterManager;
 

@@ -1,19 +1,13 @@
-package com.example.zhengmin.mixstack.activity;
+package com.example.zhengmin.mixstack.base;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 
 import com.example.zhengmin.mixstack.R;
-import com.example.zhengmin.mixstack.base.FragmentItem;
-import com.example.zhengmin.mixstack.base.RouterManager;
-import com.example.zhengmin.mixstack.fragment.BaseFragment;
 
 import java.lang.reflect.Constructor;
 

@@ -1,7 +1,5 @@
 package com.example.zhengmin.mixstack.base;
 
-import com.example.zhengmin.mixstack.fragment.BaseFragment;
-
 import java.lang.ref.WeakReference;
 
 /**

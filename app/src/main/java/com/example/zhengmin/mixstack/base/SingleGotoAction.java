@@ -3,9 +3,6 @@ package com.example.zhengmin.mixstack.base;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.example.zhengmin.mixstack.activity.BaseFragmentActivity;
-import com.example.zhengmin.mixstack.fragment.BaseFragment;
-
 import java.util.Stack;
 
 public class SingleGotoAction implements GotoAction {
