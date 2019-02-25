@@ -109,33 +109,36 @@ public class BaseFragmentActivity extends Activity {
                 finish();
             }
             else{
-                getFragmentManager().beginTransaction().show(enterFragment).commit();
-
-                final ValueAnimator valueAnimator = ValueAnimator.ofInt(0,mFragmentWidth).setDuration(ANIMATION_DURATION);
-                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        int value = (int) animation.getAnimatedValue();
-                        if (exitFragment != null && exitFragment.getView() != null) {
-                            exitFragment.getView().setX(value);
-                        }
-                        if (enterFragment != null && enterFragment.getView() != null) {
-                            enterFragment.getView().setX(value - mFragmentWidth);
-                        }
-                    }
-                });
-
-                valueAnimator.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        valueAnimator.removeListener(this);
-                        valueAnimator.removeAllUpdateListeners();
-                        getFragmentManager().beginTransaction().remove(exitFragment).commit();
-                    }
-                });
-
-                valueAnimator.start();
+                fragmentTransfer(exitFragment,enterFragment);
             }
         }
+    }
+    public void fragmentTransfer(final BaseFragment exitFragment,final BaseFragment enterFragment){
+        getFragmentManager().beginTransaction().show(enterFragment).commit();
+
+        final ValueAnimator valueAnimator = ValueAnimator.ofInt(0,mFragmentWidth).setDuration(ANIMATION_DURATION);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int value = (int) animation.getAnimatedValue();
+                if (exitFragment != null && exitFragment.getView() != null) {
+                    exitFragment.getView().setX(value);
+                }
+                if (enterFragment != null && enterFragment.getView() != null) {
+                    enterFragment.getView().setX(value - mFragmentWidth);
+                }
+            }
+        });
+
+        valueAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                valueAnimator.removeListener(this);
+                valueAnimator.removeAllUpdateListeners();
+                getFragmentManager().beginTransaction().remove(exitFragment).commit();
+            }
+        });
+
+        valueAnimator.start();
     }
 }

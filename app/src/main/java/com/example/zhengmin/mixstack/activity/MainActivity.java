@@ -21,8 +21,8 @@ public class MainActivity extends Activity {
 //                MainActivity.this.startActivity(intent);
                 Bundle bundle = new Bundle();
                 bundle.putString("key","test");
-                RouterManager.getInstance().jumpTo(MainActivity.this,
-                        "com.example.zhengmin.mixstack.fragment.BlankFragment",
+                RouterManager.getInstance().goTo(MainActivity.this,
+                        "com.example.zhengmin.mixstack.fragment.BlankFragmentA",
                         new NormalGotoAction(),bundle);
             }
         });

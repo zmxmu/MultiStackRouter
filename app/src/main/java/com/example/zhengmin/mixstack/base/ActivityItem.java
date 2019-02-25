@@ -12,9 +12,11 @@ public class ActivityItem extends RouterItem {
 
     WeakReference<Activity> mActivityWR;
     int mType;
-    public ActivityItem(int type,WeakReference<Activity> activityWeakReference){
+    public ActivityItem(int type,WeakReference<Activity> activityWeakReference,String routerPath){
+        super(routerPath);
         mType = type;
         mActivityWR = activityWeakReference;
+
     }
     @Override
     public Activity getItem() {

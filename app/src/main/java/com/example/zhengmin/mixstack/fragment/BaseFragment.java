@@ -15,8 +15,12 @@ public class BaseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         WeakReference<BaseFragment> weakReference = new WeakReference<BaseFragment>(this);
-        RouterManager.getInstance().getStack().push(
-                new FragmentItem(RouterItem.ROUTER_TYPE_FRAGMENT,weakReference));
+        Bundle bundle = getArguments();
+        if(bundle!=null){
+            String routerPath=bundle.getString(RouterManager.BUNDLE_KEY_FRAGMENT);
+            RouterManager.getInstance().getStack().push(
+                    new FragmentItem(RouterItem.ROUTER_TYPE_FRAGMENT,weakReference,routerPath));
+        }
     }
     @Override
     public void onDestroy() {

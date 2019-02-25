@@ -12,7 +12,8 @@ public class FragmentItem extends RouterItem {
 
     WeakReference<BaseFragment> mFragmentWR;
     int mType;
-    public FragmentItem(int type, WeakReference<BaseFragment> fragmentWeakReference){
+    public FragmentItem(int type, WeakReference<BaseFragment> fragmentWeakReference,String routerKey){
+        super(routerKey);
         mType = type;
         mFragmentWR = fragmentWeakReference;
     }

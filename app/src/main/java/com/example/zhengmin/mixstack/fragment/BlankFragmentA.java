@@ -11,7 +11,7 @@ import com.example.zhengmin.mixstack.base.NormalGotoAction;
 import com.example.zhengmin.mixstack.base.RouterManager;
 
 
-public class BlankFragment extends BaseFragment {
+public class BlankFragmentA extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -22,7 +22,7 @@ public class BlankFragment extends BaseFragment {
     private String mParam2;
 
 
-    public BlankFragment() {
+    public BlankFragmentA() {
         // Required empty public constructor
     }
 
@@ -46,7 +46,7 @@ public class BlankFragment extends BaseFragment {
             public void onClick(View view) {
                 Bundle bundle =  new Bundle();
                 bundle.putString("key","abc");
-                RouterManager.getInstance().jumpTo(getActivity(),"com.example.zhengmin.mixstack.fragment.BlankFragment2",
+                RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.mixstack.fragment.BlankFragmentB",
                         new NormalGotoAction(),bundle);
             }
         });

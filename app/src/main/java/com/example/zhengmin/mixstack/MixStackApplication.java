@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.example.zhengmin.mixstack.activity.BaseFragmentActivity;
 import com.example.zhengmin.mixstack.base.ActivityItem;
@@ -30,14 +31,22 @@ public class MixStackApplication extends Application {
 
         @Override
         public void onActivityCreated(Activity activity, Bundle bundle) {
+            String routerPath;
+            Bundle paraBundle = activity.getIntent().getExtras();
+            if(paraBundle!=null){
+                routerPath=paraBundle.getString(RouterManager.BUNDLE_KEY_PATH);
+            }
+            else{
+                routerPath = activity.getClass().getName();
+            }
             WeakReference<Activity> activityWeakReference = new WeakReference<Activity>(activity);
-            if(activity instanceof BaseFragmentActivity){
+            if(TextUtils.equals(routerPath,BaseFragmentActivity.class.getName())){
                 RouterManager.getInstance().getStack().push(
-                        new ActivityItem(RouterItem.ROUTER_TYPE_CONTAINER,activityWeakReference));
+                        new ActivityItem(RouterItem.ROUTER_TYPE_CONTAINER,activityWeakReference,routerPath));
             }
             else{
                 RouterManager.getInstance().getStack().push(
-                        new ActivityItem(RouterItem.ROUTER_TYPE_ACTIVITY,activityWeakReference));
+                        new ActivityItem(RouterItem.ROUTER_TYPE_ACTIVITY,activityWeakReference,routerPath));
             }
         }
 

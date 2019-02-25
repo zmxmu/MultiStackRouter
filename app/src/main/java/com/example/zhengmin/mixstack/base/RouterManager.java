@@ -18,7 +18,7 @@ import java.util.Stack;
 public class RouterManager {
 
     public static final String BUNDLE_KEY_FRAGMENT = "fragmentCls";
-    public static final String BUNDLE_KEY_PARAMS = "params";
+    public static final String BUNDLE_KEY_PATH = "route_path";
     private RouterManager(){};
     private static volatile RouterManager instance;
     public  static  RouterManager  getInstance(){
@@ -56,7 +56,7 @@ public class RouterManager {
         }
         return result;
     }
-    public boolean jumpTo(Context context,String path, GotoAction action, Bundle bundle){
+    public boolean goTo(Context context,String path, GotoAction action, Bundle bundle){
         Class clz;
         try {
             clz = Class.forName(path);
@@ -69,17 +69,22 @@ public class RouterManager {
         if(itemType == RouterItem.ROUTER_TYPE_NONE){
             return false;
         }
+        if(bundle == null){
+            bundle = new Bundle();
+        }
+        bundle.putString(BUNDLE_KEY_PATH,path);
         return action.gotoPage(context,path,bundle,itemType);
     }
     public void startNewActivity(Context context,String path,Bundle bundle){
         Intent intent = new Intent();
-        ComponentName componentName = new ComponentName(context.getClass().getName(),path);
+        ComponentName componentName = new ComponentName(context.getPackageName(),path);
         intent.setComponent(componentName);
-        context.startActivity(intent,bundle);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
     }
-    private int getPathIndex(String path){
+    public int getPathIndex(String path){
         for(int i = mStack.size()-1;i>=0;i--){
-            if(TextUtils.equals(path,mStack.get(i).getRouterKey())){
+            if(TextUtils.equals(path,mStack.get(i).getRouterPath())){
                 return i;
             }
         }
@@ -89,6 +94,9 @@ public class RouterManager {
         for(int i = mStack.size()-1;i>=0;i--){
             if(mStack.get(i).getType()== RouterItem.ROUTER_TYPE_CONTAINER){
                 return (BaseFragmentActivity)((ActivityItem)mStack.get(i)).getActivityWR().get();
+            }
+            else if(mStack.get(i).getType()== RouterItem.ROUTER_TYPE_ACTIVITY){
+                return null;
             }
         }
         return null;
