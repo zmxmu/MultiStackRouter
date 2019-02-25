@@ -1,19 +1,14 @@
 package com.example.zhengmin.mixstack.base;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.example.zhengmin.mixstack.activity.BaseFragmentActivity;
 import com.example.zhengmin.mixstack.fragment.BaseFragment;
 
-import java.lang.ref.WeakReference;
-import java.util.Iterator;
 import java.util.Stack;
 
 /**

@@ -1,10 +1,8 @@
 package com.example.zhengmin.mixstack.fragment;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 
-import com.example.zhengmin.mixstack.base.ActivityItem;
 import com.example.zhengmin.mixstack.base.FragmentItem;
 import com.example.zhengmin.mixstack.base.RouterItem;
 import com.example.zhengmin.mixstack.base.RouterManager;
