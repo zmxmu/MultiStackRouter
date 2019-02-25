@@ -18,7 +18,7 @@ public class SingleGotoAction implements GotoAction {
         }
         switch (itemType){
             case RouterItem.ROUTER_TYPE_ACTIVITY:
-                if(index>0){
+                if(index>=0){
                     for(int i = stack.size()-1;i>index;i--){
                         RouterItem currentItem = stack.get(i);
                         if(currentItem.getType() == RouterItem.ROUTER_TYPE_ACTIVITY

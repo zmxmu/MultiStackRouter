@@ -13,6 +13,7 @@ import com.example.zhengmin.mixstack.R;
 import com.example.zhengmin.mixstack.activity.MainActivity;
 import com.example.zhengmin.mixstack.base.NormalGotoAction;
 import com.example.zhengmin.mixstack.base.RouterManager;
+import com.example.zhengmin.mixstack.base.SingleGotoAction;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,7 +42,7 @@ public class BlankFragmentC extends BaseFragment {
                 //intent.putExtras(bundle);
 //                getActivity().startActivity(intent);
                 RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.mixstack.activity.MainActivity",
-                        new NormalGotoAction(),bundle);
+                        new SingleGotoAction(),bundle);
             }
         });
         return view;

@@ -1,13 +1,16 @@
 package com.example.zhengmin.mixstack.fragment;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 
+import com.example.zhengmin.mixstack.base.ActivityItem;
 import com.example.zhengmin.mixstack.base.FragmentItem;
 import com.example.zhengmin.mixstack.base.RouterItem;
 import com.example.zhengmin.mixstack.base.RouterManager;
 
 import java.lang.ref.WeakReference;
+import java.util.Iterator;
 import java.util.Stack;
 
 public class BaseFragment extends Fragment {
@@ -26,10 +29,12 @@ public class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Stack<RouterItem> stack = RouterManager.getInstance().getStack();
-        while(stack.size()>0){
-            RouterItem currentItem = stack.pop();
+        Iterator<RouterItem> itemIterator = stack.iterator();
+        while(itemIterator.hasNext()){
+            RouterItem currentItem = itemIterator.next();
             if(currentItem instanceof FragmentItem){
                 if(this == (BaseFragment)((FragmentItem) currentItem).getFragmentWR().get()){
+                    itemIterator.remove();
                     break;
                 }
             }
