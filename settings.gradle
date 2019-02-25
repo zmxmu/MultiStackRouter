@@ -1,1 +1,1 @@
-include ':app', ':mixstack'
+include ':app', ':mixstack', ':RouteProcessor'

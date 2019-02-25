@@ -11,6 +11,7 @@ import com.syswin.msgseal.mixstack.model.ActivityItem;
 import com.syswin.msgseal.mixstack.model.FragmentItem;
 import com.syswin.msgseal.mixstack.model.RouterItem;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 /**
@@ -34,6 +35,11 @@ public class RouterManager {
         return instance;
     }
 
+    private HashMap<String, Class> mRouterMap = new HashMap<>();
+
+    public HashMap<String, Class> getRouterMap() {
+        return mRouterMap;
+    }
     public Stack<RouterItem> getStack() {
         return mStack;
     }
@@ -59,11 +65,8 @@ public class RouterManager {
         return result;
     }
     public boolean goTo(Context context, String path, GotoAction action, Bundle bundle){
-        Class clz;
-        try {
-            clz = Class.forName(path);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        Class clz = mRouterMap.get(path);
+        if(clz == null){
             return false;
         }
         int itemType = getItemType(clz);

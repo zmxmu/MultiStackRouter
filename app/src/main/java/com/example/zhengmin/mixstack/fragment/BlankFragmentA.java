@@ -8,9 +8,10 @@ import android.view.ViewGroup;
 
 import com.example.zhengmin.mixstack.R;
 import com.syswin.msgseal.mixstack.BaseFragment;
-import com.syswin.msgseal.mixstack.action.NormalGotoAction;
 import com.syswin.msgseal.mixstack.RouterManager;
-import com.syswin.msgseal.mixstack.annotation.MixStackRoute;
+import com.syswin.msgseal.mixstack.action.NormalGotoAction;
+import com.syswin.msgseal.routeprocessor.MixStackRoute;
+
 
 @MixStackRoute(url = "BlankFragmentA")
 public class BlankFragmentA extends BaseFragment {
@@ -48,7 +49,7 @@ public class BlankFragmentA extends BaseFragment {
             public void onClick(View view) {
                 Bundle bundle =  new Bundle();
                 bundle.putString("key","abc");
-                RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.mixstack.fragment.BlankFragmentB",
+                RouterManager.getInstance().goTo(getActivity(),"BlankFragmentB",
                         new NormalGotoAction(),bundle);
             }
         });

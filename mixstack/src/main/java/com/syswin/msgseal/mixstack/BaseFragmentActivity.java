@@ -24,9 +24,9 @@ public class BaseFragmentActivity extends Activity {
         }
         mFragmentWidth = getFragmentWidth();
     }
-    private BaseFragment getFragment(String className) {
+    private BaseFragment getFragment(String path) {
         try {
-            Class fragmentClazz = Class.forName(className);
+            Class fragmentClazz = RouterManager.getInstance().getRouterMap().get(path);
             Constructor<?> constructor = fragmentClazz.getConstructor(new Class[0]);
             return (BaseFragment) constructor.newInstance(new Object[0]);
         } catch (Exception e) {
@@ -37,8 +37,8 @@ public class BaseFragmentActivity extends Activity {
     /**
      * 新加页面
      */
-    public void addFragment(Bundle bundle, String className) {
-        final BaseFragment enterFragment = getFragment(className);
+    public void addFragment(Bundle bundle, String path) {
+        final BaseFragment enterFragment = getFragment(path);
         final BaseFragment exitFragment = RouterManager.getInstance().getTopFragment();
         if (enterFragment == null) {
             return;

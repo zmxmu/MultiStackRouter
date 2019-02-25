@@ -7,7 +7,7 @@ import android.view.View;
 import com.example.zhengmin.mixstack.R;
 import com.syswin.msgseal.mixstack.action.NormalGotoAction;
 import com.syswin.msgseal.mixstack.RouterManager;
-import com.syswin.msgseal.mixstack.annotation.MixStackRoute;
+import com.syswin.msgseal.routeprocessor.MixStackRoute;
 
 @MixStackRoute(url = "MainActivity")
 public class MainActivity extends Activity {
@@ -24,7 +24,7 @@ public class MainActivity extends Activity {
                 Bundle bundle = new Bundle();
                 bundle.putString("key","test");
                 RouterManager.getInstance().goTo(MainActivity.this,
-                        "com.example.zhengmin.mixstack.fragment.BlankFragmentA",
+                        "BlankFragmentA",
                         new NormalGotoAction(),bundle);
             }
         });

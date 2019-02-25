@@ -11,7 +11,7 @@ import com.example.zhengmin.mixstack.R;
 import com.syswin.msgseal.mixstack.BaseFragment;
 import com.syswin.msgseal.mixstack.RouterManager;
 import com.syswin.msgseal.mixstack.action.SingleGotoAction;
-import com.syswin.msgseal.mixstack.annotation.MixStackRoute;
+import com.syswin.msgseal.routeprocessor.MixStackRoute;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,7 +40,7 @@ public class BlankFragmentC extends BaseFragment {
 //                intent.setComponent(componentName);
                 //intent.putExtras(bundle);
 //                getActivity().startActivity(intent);
-                RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.mixstack.fragment.BlankFragmentA",
+                RouterManager.getInstance().goTo(getActivity(),"BlankFragmentA",
                         new SingleGotoAction(),bundle);
 //                RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.mixstack.activity.MainActivity",
 //                        new SingleGotoAction(),bundle);
