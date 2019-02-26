@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.example.zhengmin.mixstack.R;
 import com.syswin.msgseal.mixstack.BaseFragment;
 import com.syswin.msgseal.mixstack.RouterManager;
+import com.syswin.msgseal.mixstack.action.NormalGotoAction;
 import com.syswin.msgseal.mixstack.action.SingleGotoAction;
 import com.syswin.msgseal.routeprocessor.MixStackRoute;
 
@@ -35,15 +36,15 @@ public class BlankFragmentC extends BaseFragment {
                 Bundle bundle =  new Bundle();
                 bundle.putString("key","abc");
 
-//                Intent intent = new Intent();
-//                ComponentName componentName = new ComponentName(getActivity().getPackageName(),MainActivity.class.getName());
-//                intent.setComponent(componentName);
-                //intent.putExtras(bundle);
-//                getActivity().startActivity(intent);
-                RouterManager.getInstance().goTo(getActivity(),"BlankFragmentA",
-                        new SingleGotoAction(),bundle);
+//                RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.mixstack.activity.MainActivity",
+//                        new NormalGotoAction(),bundle);
 //                RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.mixstack.activity.MainActivity",
 //                        new SingleGotoAction(),bundle);
+//                RouterManager.getInstance().goTo(getActivity(),"BlankFragmentA",
+//                        new SingleGotoAction(),bundle);
+                //RouterManager.getInstance().goBack(getActivity(),"BlankFragmentA",bundle);
+                RouterManager.getInstance().goBack(getActivity(),
+                        "com.example.zhengmin.mixstack.activity.MainActivity",bundle);
             }
         });
         return view;

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.syswin.msgseal.mixstack.action.GotoAction;
+import com.syswin.msgseal.mixstack.action.NormalGotoAction;
+import com.syswin.msgseal.mixstack.action.SingleGotoAction;
 import com.syswin.msgseal.mixstack.model.ActivityItem;
 import com.syswin.msgseal.mixstack.model.FragmentItem;
 import com.syswin.msgseal.mixstack.model.RouterItem;
@@ -80,6 +82,16 @@ public class RouterManager {
         bundle.putString(BUNDLE_KEY_PATH,path);
         return action.gotoPage(context,path,bundle,itemType);
     }
+
+    public boolean goBack(Context context, String path,Bundle bundle){
+        if(mRouterMap.containsKey(path)){
+            return goTo(context,path,new SingleGotoAction(),bundle);
+        }
+        else{
+            return false;
+        }
+    }
+
     public void startNewActivity(Context context,String path,Bundle bundle){
         Intent intent = new Intent();
         ComponentName componentName = new ComponentName(context.getPackageName(),path);

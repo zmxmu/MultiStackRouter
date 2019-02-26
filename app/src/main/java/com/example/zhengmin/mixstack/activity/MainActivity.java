@@ -9,7 +9,7 @@ import com.syswin.msgseal.mixstack.action.NormalGotoAction;
 import com.syswin.msgseal.mixstack.RouterManager;
 import com.syswin.msgseal.routeprocessor.MixStackRoute;
 
-@MixStackRoute(url = "MainActivity")
+@MixStackRoute(url = "com.example.zhengmin.mixstack.activity.MainActivity")
 public class MainActivity extends Activity {
 
     @Override
