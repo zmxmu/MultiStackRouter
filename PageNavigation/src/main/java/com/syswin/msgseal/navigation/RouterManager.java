@@ -23,7 +23,7 @@ import java.util.Stack;
 
 public class RouterManager {
 
-    public static final String BUNDLE_KEY_FRAGMENT = "fragmentCls";
+    public static final String BUNDLE_KEY_FRAGMENT = "fragment_class";
     public static final String BUNDLE_KEY_PATH = "route_path";
     public static final int GOTO_ACTION_NORMAL = 0;
     public static final int GOTO_ACTION_SINGLE = 1;
@@ -90,9 +90,7 @@ public class RouterManager {
     }
 
     public void startNewActivity(Context context,String path,Bundle bundle){
-        Intent intent = new Intent();
-        ComponentName componentName = new ComponentName(context.getPackageName(),path);
-        intent.setComponent(componentName);
+        Intent intent = new Intent(context,mRouterMap.get(path));
         intent.putExtras(bundle);
         context.startActivity(intent);
     }
