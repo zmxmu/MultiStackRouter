@@ -1,14 +1,14 @@
-package com.syswin.msgseal.mixstack.action;
+package com.syswin.msgseal.navigation.action;
 
 import android.content.Context;
 import android.os.Bundle;
 
-import com.syswin.msgseal.mixstack.model.ActivityItem;
-import com.syswin.msgseal.mixstack.BaseFragment;
-import com.syswin.msgseal.mixstack.BaseFragmentActivity;
-import com.syswin.msgseal.mixstack.model.FragmentItem;
-import com.syswin.msgseal.mixstack.model.RouterItem;
-import com.syswin.msgseal.mixstack.RouterManager;
+import com.syswin.msgseal.navigation.model.ActivityItem;
+import com.syswin.msgseal.navigation.BaseFragment;
+import com.syswin.msgseal.navigation.BaseFragmentActivity;
+import com.syswin.msgseal.navigation.model.FragmentItem;
+import com.syswin.msgseal.navigation.model.RouterItem;
+import com.syswin.msgseal.navigation.RouterManager;
 
 import java.util.Stack;
 

@@ -1,4 +1,4 @@
-package com.syswin.msgseal.mixstack;
+package com.syswin.msgseal.navigation;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -6,12 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.syswin.msgseal.mixstack.action.GotoAction;
-import com.syswin.msgseal.mixstack.action.NormalGotoAction;
-import com.syswin.msgseal.mixstack.action.SingleGotoAction;
-import com.syswin.msgseal.mixstack.model.ActivityItem;
-import com.syswin.msgseal.mixstack.model.FragmentItem;
-import com.syswin.msgseal.mixstack.model.RouterItem;
+import com.syswin.msgseal.navigation.action.GotoAction;
+import com.syswin.msgseal.navigation.action.NormalGotoAction;
+import com.syswin.msgseal.navigation.action.SingleGotoAction;
+import com.syswin.msgseal.navigation.model.ActivityItem;
+import com.syswin.msgseal.navigation.model.FragmentItem;
+import com.syswin.msgseal.navigation.model.RouterItem;
 
 import java.util.HashMap;
 import java.util.Stack;

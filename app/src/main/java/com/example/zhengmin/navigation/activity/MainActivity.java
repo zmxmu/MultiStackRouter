@@ -1,15 +1,15 @@
-package com.example.zhengmin.mixstack.activity;
+package com.example.zhengmin.navigation.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.zhengmin.mixstack.R;
-import com.syswin.msgseal.mixstack.action.NormalGotoAction;
-import com.syswin.msgseal.mixstack.RouterManager;
-import com.syswin.msgseal.routeprocessor.MixStackRoute;
+import com.example.zhengmin.navigation.R;
+import com.syswin.msgseal.navigation.action.NormalGotoAction;
+import com.syswin.msgseal.navigation.RouterManager;
+import com.syswin.msgseal.routeprocessor.PageNavigationRoute;
 
-@MixStackRoute(url = "com.example.zhengmin.mixstack.activity.MainActivity")
+@PageNavigationRoute(url = "com.example.zhengmin.navigation.activity.MainActivity")
 public class MainActivity extends Activity {
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.zhengmin.mixstack.fragment;
+package com.example.zhengmin.navigation.fragment;
 
 
 import android.app.Fragment;
@@ -7,17 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.zhengmin.mixstack.R;
-import com.syswin.msgseal.mixstack.BaseFragment;
-import com.syswin.msgseal.mixstack.RouterManager;
-import com.syswin.msgseal.mixstack.action.NormalGotoAction;
-import com.syswin.msgseal.mixstack.action.SingleGotoAction;
-import com.syswin.msgseal.routeprocessor.MixStackRoute;
+import com.example.zhengmin.navigation.R;
+import com.syswin.msgseal.navigation.BaseFragment;
+import com.syswin.msgseal.navigation.RouterManager;
+import com.syswin.msgseal.navigation.action.NormalGotoAction;
+import com.syswin.msgseal.navigation.action.SingleGotoAction;
+import com.syswin.msgseal.routeprocessor.PageNavigationRoute;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-@MixStackRoute(url = "BlankFragmentC")
+@PageNavigationRoute(url = "BlankFragmentC")
 public class BlankFragmentC extends BaseFragment {
 
 
@@ -36,15 +36,15 @@ public class BlankFragmentC extends BaseFragment {
                 Bundle bundle =  new Bundle();
                 bundle.putString("key","abc");
 
-//                RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.mixstack.activity.MainActivity",
+//                RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.navigation.activity.MainActivity",
 //                        new NormalGotoAction(),bundle);
-//                RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.mixstack.activity.MainActivity",
+//                RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.navigation.activity.MainActivity",
 //                        new SingleGotoAction(),bundle);
 //                RouterManager.getInstance().goTo(getActivity(),"BlankFragmentA",
 //                        new SingleGotoAction(),bundle);
                 //RouterManager.getInstance().goBack(getActivity(),"BlankFragmentA",bundle);
                 RouterManager.getInstance().goBack(getActivity(),
-                        "com.example.zhengmin.mixstack.activity.MainActivity",bundle);
+                        "com.example.zhengmin.navigation.activity.MainActivity",bundle);
             }
         });
         return view;

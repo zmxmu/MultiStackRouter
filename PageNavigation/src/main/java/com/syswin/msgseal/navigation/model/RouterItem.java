@@ -1,4 +1,4 @@
-package com.syswin.msgseal.mixstack.model;
+package com.syswin.msgseal.navigation.model;
 
 public abstract class RouterItem {
     public static final int ROUTER_TYPE_NONE = 0;

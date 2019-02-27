@@ -1,9 +1,9 @@
-package com.example.zhengmin.mixstack;
+package com.example.zhengmin.navigation;
 
 import android.app.Application;
 
-import com.syswin.msgseal.mixstack.RouterManager;
-import com.syswin.msgseal.mixstack.SwitchBackgroundCallbacks;
+import com.syswin.msgseal.navigation.RouterManager;
+import com.syswin.msgseal.navigation.SwitchBackgroundCallbacks;
 import com.syswin.msgseal.routeprocessor.RouteMap;
 
 /**

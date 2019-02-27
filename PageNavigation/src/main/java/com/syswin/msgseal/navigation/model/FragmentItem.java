@@ -1,6 +1,6 @@
-package com.syswin.msgseal.mixstack.model;
+package com.syswin.msgseal.navigation.model;
 
-import com.syswin.msgseal.mixstack.BaseFragment;
+import com.syswin.msgseal.navigation.BaseFragment;
 
 import java.lang.ref.WeakReference;
 

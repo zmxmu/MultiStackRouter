@@ -1,10 +1,10 @@
-package com.syswin.msgseal.mixstack;
+package com.syswin.msgseal.navigation;
 
 import android.app.Fragment;
 import android.os.Bundle;
 
-import com.syswin.msgseal.mixstack.model.FragmentItem;
-import com.syswin.msgseal.mixstack.model.RouterItem;
+import com.syswin.msgseal.navigation.model.FragmentItem;
+import com.syswin.msgseal.navigation.model.RouterItem;
 
 import java.lang.ref.WeakReference;
 import java.util.Iterator;

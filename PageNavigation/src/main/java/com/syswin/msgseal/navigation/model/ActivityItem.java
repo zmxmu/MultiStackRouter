@@ -1,4 +1,4 @@
-package com.syswin.msgseal.mixstack.model;
+package com.syswin.msgseal.navigation.model;
 
 import android.app.Activity;
 

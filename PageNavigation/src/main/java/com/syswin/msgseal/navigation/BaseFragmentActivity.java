@@ -1,4 +1,4 @@
-package com.syswin.msgseal.mixstack;
+package com.syswin.msgseal.navigation;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

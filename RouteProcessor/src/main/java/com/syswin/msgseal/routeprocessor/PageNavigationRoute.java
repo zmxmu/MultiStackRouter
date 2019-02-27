@@ -17,6 +17,6 @@ import java.lang.annotation.Target;
 @Inherited
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.TYPE)
-public @interface MixStackRoute {
+public @interface PageNavigationRoute {
     String url() default "";
 }

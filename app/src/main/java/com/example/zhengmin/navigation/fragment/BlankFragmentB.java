@@ -1,4 +1,4 @@
-package com.example.zhengmin.mixstack.fragment;
+package com.example.zhengmin.navigation.fragment;
 
 
 import android.os.Bundle;
@@ -7,17 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.zhengmin.mixstack.R;
-import com.syswin.msgseal.mixstack.BaseFragment;
-import com.syswin.msgseal.mixstack.action.NormalGotoAction;
-import com.syswin.msgseal.mixstack.RouterManager;
-import com.syswin.msgseal.routeprocessor.MixStackRoute;
+import com.example.zhengmin.navigation.R;
+import com.syswin.msgseal.navigation.BaseFragment;
+import com.syswin.msgseal.navigation.action.NormalGotoAction;
+import com.syswin.msgseal.navigation.RouterManager;
+import com.syswin.msgseal.routeprocessor.PageNavigationRoute;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-@MixStackRoute(url = "BlankFragmentB")
+@PageNavigationRoute(url = "BlankFragmentB")
 public class BlankFragmentB extends BaseFragment {
 
 

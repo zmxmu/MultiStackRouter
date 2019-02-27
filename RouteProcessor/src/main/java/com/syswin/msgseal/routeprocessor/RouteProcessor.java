@@ -41,7 +41,7 @@ public class RouteProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(MixStackRoute.class);
+        Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(PageNavigationRoute.class);
         TypeSpec spec = processElements(elements);
         try {
             if (spec != null) {
@@ -69,7 +69,7 @@ public class RouteProcessor extends AbstractProcessor {
                         Modifier.STATIC).addParameter(mapSpec);
 
         for (Element element : elements) {
-            MixStackRoute route = element.getAnnotation(MixStackRoute.class);
+            PageNavigationRoute route = element.getAnnotation(PageNavigationRoute.class);
             String url = route.url();
             if (null != url && !"".equals(url)) {
                 initMethodBuilder.addStatement("routerMap.put($S,$T.class)", url, ClassName.get
@@ -84,7 +84,7 @@ public class RouteProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> set = new LinkedHashSet<>();
-        set.add(MixStackRoute.class.getCanonicalName());
+        set.add(PageNavigationRoute.class.getCanonicalName());
         return set;
     }
 

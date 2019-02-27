@@ -1,12 +1,12 @@
-package com.syswin.msgseal.mixstack;
+package com.syswin.msgseal.navigation;
 
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.syswin.msgseal.mixstack.model.ActivityItem;
-import com.syswin.msgseal.mixstack.model.RouterItem;
+import com.syswin.msgseal.navigation.model.ActivityItem;
+import com.syswin.msgseal.navigation.model.RouterItem;
 
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
