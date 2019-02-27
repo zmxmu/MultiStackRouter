@@ -66,7 +66,10 @@ public class SlideUpDownAnimator extends PageTransferAnimator {
             public void onAnimationEnd(Animator animation) {
                 valueAnimator.removeListener(this);
                 valueAnimator.removeAllUpdateListeners();
-                mActivity.getFragmentManager().beginTransaction().remove(exitFragment).commit();
+                if (exitFragment != null) {
+                    exitFragment.onHide();
+                    mActivity.getFragmentManager().beginTransaction().remove(exitFragment).commit();
+                }
             }
         });
 

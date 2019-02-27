@@ -37,19 +37,7 @@ public class FragmentContainerActivity extends Activity {
         }
         return null;
     }
-    private void initAnimator(int animatorType){
-        if(mAnimator == null || animatorType != mAnimatorType){
-            mAnimatorType = animatorType;
-            switch (animatorType){
-                case ANIMATOR_SLIDE_LEFT_RIGHT:
-                    mAnimator = new SlideLeftRightAnimator(this,Utils.getFragmentWidth(this));
-                    break;
-                case ANIMATOR_SLIDE_UP_DOWN:
-                    mAnimator = new SlideUpDownAnimator(this,Utils.getFragmentHeight(this));
-                    break;
-            }
-        }
-    }
+
     /**
      * 新加页面
      */
@@ -63,7 +51,10 @@ public class FragmentContainerActivity extends Activity {
             bundle = new Bundle();
         }
         enterFragment.setArguments(bundle);
-        initAnimator(animatorType);
+        if(mAnimator == null || animatorType!=mAnimatorType){
+            mAnimatorType = animatorType;
+            mAnimator = NavigationHelper.initAnimator(this,animatorType);
+        }
         getFragmentManager().beginTransaction().add(R.id.content, enterFragment).commitAllowingStateLoss();
         if(exitFragment!=null && mAnimator!=null){
             mAnimator.animatorEnter(exitFragment,enterFragment);

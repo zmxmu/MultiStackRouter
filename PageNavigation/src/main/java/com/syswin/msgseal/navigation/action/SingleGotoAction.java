@@ -3,6 +3,7 @@ package com.syswin.msgseal.navigation.action;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.syswin.msgseal.navigation.NavigationHelper;
 import com.syswin.msgseal.navigation.model.ActivityItem;
 import com.syswin.msgseal.navigation.BaseFragment;
 import com.syswin.msgseal.navigation.FragmentContainerActivity;
@@ -41,8 +42,12 @@ public class SingleGotoAction extends GotoAction {
                 break;
             case PageItem.ROUTER_TYPE_FRAGMENT:
                 if(index>0){
-                    BaseFragment fragment = ((FragmentItem)stack.get(index)).getFragmentWR().get();
-                    FragmentContainerActivity container = (FragmentContainerActivity)fragment.getActivity();
+                    BaseFragment enterFragment = ((FragmentItem)stack.get(index)).getFragmentWR().get();
+                    FragmentContainerActivity container = (FragmentContainerActivity)enterFragment.getActivity();
+                    BaseFragment exitFragment = RouterManager.getInstance().getTopFragment();
+                    if(exitFragment.getActivity()!= container){
+                        exitFragment = null;
+                    }
                     for(int i = stack.size()-1;i>index;i--){
                         PageItem currentItem = stack.get(i);
                         if(currentItem.getType() == PageItem.ROUTER_TYPE_ACTIVITY
@@ -50,13 +55,18 @@ public class SingleGotoAction extends GotoAction {
                             ((ActivityItem)currentItem).getActivityWR().get().finish();
                         }
                         else if(currentItem.getType() == PageItem.ROUTER_TYPE_FRAGMENT){
+                            if(i == stack.size()-1 && exitFragment!=null){
+                                continue;
+                            }
                             BaseFragment currentFragment = ((FragmentItem)currentItem).getFragmentWR().get();
                             FragmentContainerActivity currentContainer = (FragmentContainerActivity)currentFragment.getActivity();
                             currentContainer.getFragmentManager().beginTransaction().remove(currentFragment).commit();
                         }
                     }
-                    container.getFragmentManager().beginTransaction().show(fragment).commit();
-                    fragment.getView().setX(0);
+
+                    container.getFragmentManager().beginTransaction().show(enterFragment).commit();
+                    NavigationHelper.initAnimator(container,animatorType).animatorExit(exitFragment,enterFragment);
+//                    enterFragment.getView().setX(0);
 
                 }
                 else{
