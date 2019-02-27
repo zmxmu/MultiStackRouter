@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.syswin.msgseal.navigation.BaseFragmentActivity">
+    tools:context="com.syswin.msgseal.navigation.FragmentContainerActivity">
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.syswin.msgseal.navigation.BaseFragmentActivity;
+import com.syswin.msgseal.navigation.FragmentContainerActivity;
 import com.syswin.msgseal.navigation.model.RouterItem;
 import com.syswin.msgseal.navigation.RouterManager;
 
@@ -19,14 +19,14 @@ public class NormalGotoAction implements GotoAction {
                 RouterManager.getInstance().startNewActivity(context,path,bundle);
                 break;
             case RouterItem.ROUTER_TYPE_FRAGMENT:
-                BaseFragmentActivity baseFragmentActivity = RouterManager.getInstance().getLastContainer();
+                FragmentContainerActivity baseFragmentActivity = RouterManager.getInstance().getLastContainer();
                 if(baseFragmentActivity!=null){
                     bundle.putString(BUNDLE_KEY_FRAGMENT,path);
                     baseFragmentActivity.addFragment(bundle,path);
                 }
                 else{
-                    Intent intent = new Intent(context,BaseFragmentActivity.class);
-                    bundle.putString(BUNDLE_KEY_PATH,BaseFragmentActivity.class.getName());
+                    Intent intent = new Intent(context,FragmentContainerActivity.class);
+                    bundle.putString(BUNDLE_KEY_PATH,FragmentContainerActivity.class.getName());
                     bundle.putString(BUNDLE_KEY_FRAGMENT,path);
                     intent.putExtras(bundle);
                     context.startActivity(intent,bundle);

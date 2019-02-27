@@ -54,7 +54,7 @@ public class RouterManager {
             if(TextUtils.equals(clz.getSimpleName(),"BaseFragment")){
                 return RouterItem.ROUTER_TYPE_FRAGMENT;
             }
-            else if(TextUtils.equals(clz.getSimpleName(),"BaseFragmentActivity")){
+            else if(TextUtils.equals(clz.getSimpleName(),"FragmentContainerActivity")){
                 return RouterItem.ROUTER_TYPE_CONTAINER;
             }
             else if(TextUtils.equals(clz.getSimpleName(),"Activity")){
@@ -107,10 +107,10 @@ public class RouterManager {
         }
         return -1;
     }
-    public BaseFragmentActivity getLastContainer(){
+    public FragmentContainerActivity getLastContainer(){
         for(int i = mStack.size()-1;i>=0;i--){
             if(mStack.get(i).getType()== RouterItem.ROUTER_TYPE_CONTAINER){
-                return (BaseFragmentActivity)((ActivityItem)mStack.get(i)).getActivityWR().get();
+                return (FragmentContainerActivity)((ActivityItem)mStack.get(i)).getActivityWR().get();
             }
             else if(mStack.get(i).getType()== RouterItem.ROUTER_TYPE_ACTIVITY){
                 return null;

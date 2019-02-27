@@ -10,7 +10,7 @@ import android.util.DisplayMetrics;
 
 import java.lang.reflect.Constructor;
 
-public class BaseFragmentActivity extends Activity {
+public class FragmentContainerActivity extends Activity {
     public static final int ANIMATION_DURATION = 300;
     private int mFragmentWidth;
     @Override

@@ -24,7 +24,7 @@ public class SwitchBackgroundCallbacks implements Application.ActivityLifecycleC
             routerPath = activity.getClass().getName();
         }
         WeakReference<Activity> activityWeakReference = new WeakReference<Activity>(activity);
-        if(TextUtils.equals(routerPath,BaseFragmentActivity.class.getName())){
+        if(TextUtils.equals(routerPath,FragmentContainerActivity.class.getName())){
             RouterManager.getInstance().getStack().push(
                     new ActivityItem(RouterItem.ROUTER_TYPE_CONTAINER,activityWeakReference,routerPath));
         }

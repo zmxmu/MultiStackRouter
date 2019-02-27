@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.syswin.msgseal.navigation.model.ActivityItem;
 import com.syswin.msgseal.navigation.BaseFragment;
-import com.syswin.msgseal.navigation.BaseFragmentActivity;
+import com.syswin.msgseal.navigation.FragmentContainerActivity;
 import com.syswin.msgseal.navigation.model.FragmentItem;
 import com.syswin.msgseal.navigation.model.RouterItem;
 import com.syswin.msgseal.navigation.RouterManager;
@@ -38,7 +38,7 @@ public class SingleGotoAction implements GotoAction {
             case RouterItem.ROUTER_TYPE_FRAGMENT:
                 if(index>0){
                     BaseFragment fragment = ((FragmentItem)stack.get(index)).getFragmentWR().get();
-                    BaseFragmentActivity container = (BaseFragmentActivity)fragment.getActivity();
+                    FragmentContainerActivity container = (FragmentContainerActivity)fragment.getActivity();
                     for(int i = stack.size()-1;i>index;i--){
                         RouterItem currentItem = stack.get(i);
                         if(currentItem.getType() == RouterItem.ROUTER_TYPE_ACTIVITY
@@ -47,7 +47,7 @@ public class SingleGotoAction implements GotoAction {
                         }
                         else if(currentItem.getType() == RouterItem.ROUTER_TYPE_FRAGMENT){
                             BaseFragment currentFragment = ((FragmentItem)currentItem).getFragmentWR().get();
-                            BaseFragmentActivity currentContainer = (BaseFragmentActivity)currentFragment.getActivity();
+                            FragmentContainerActivity currentContainer = (FragmentContainerActivity)currentFragment.getActivity();
                             currentContainer.getFragmentManager().beginTransaction().remove(currentFragment).commit();
                         }
                     }

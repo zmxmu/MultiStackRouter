@@ -19,7 +19,7 @@ public class MainActivity extends Activity {
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, BaseFragmentActivity.class);
+//                Intent intent = new Intent(MainActivity.this, FragmentContainerActivity.class);
 //                MainActivity.this.startActivity(intent);
                 Bundle bundle = new Bundle();
                 bundle.putString("key","test");
