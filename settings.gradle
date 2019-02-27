@@ -1,1 +1,1 @@
-include ':app', ':mixstack', ':RouteProcessor'
+include ':app', ':PageNavigation', ':RouteProcessor'
