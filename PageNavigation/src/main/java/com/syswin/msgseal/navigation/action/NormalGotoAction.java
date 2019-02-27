@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.syswin.msgseal.navigation.BaseFragment;
 import com.syswin.msgseal.navigation.FragmentContainerActivity;
 import com.syswin.msgseal.navigation.model.PageItem;
 import com.syswin.msgseal.navigation.RouterManager;

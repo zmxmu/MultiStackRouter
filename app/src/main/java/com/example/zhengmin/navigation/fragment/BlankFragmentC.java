@@ -36,13 +36,13 @@ public class BlankFragmentC extends BaseFragment {
                 Bundle bundle =  new Bundle();
                 bundle.putString("key","abc");
 
-                RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.navigation.activity.MainActivity",
-                        RouterManager.GOTO_ACTION_NORMAL,bundle);
+//                RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.navigation.activity.MainActivity",
+//                        RouterManager.GOTO_ACTION_NORMAL,bundle);
 //                RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.navigation.activity.MainActivity",
 //                        new SingleGotoAction(),bundle);
 //                RouterManager.getInstance().goTo(getActivity(),"BlankFragmentA",
 //                        new SingleGotoAction(),bundle);
-                //RouterManager.getInstance().goBack(getActivity(),"BlankFragmentA",bundle);
+                RouterManager.getInstance().goBack(getActivity(),"BlankFragmentA",bundle);
 //                RouterManager.getInstance().goBack(getActivity(),
 //                        "com.example.zhengmin.navigation.activity.MainActivity",bundle);
             }

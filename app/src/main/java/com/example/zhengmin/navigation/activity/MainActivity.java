@@ -2,6 +2,7 @@ package com.example.zhengmin.navigation.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.zhengmin.navigation.R;
@@ -28,5 +29,15 @@ public class MainActivity extends Activity {
                         RouterManager.GOTO_ACTION_NORMAL,bundle);
             }
         });
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.e(this.getClass().getSimpleName(),"onResume");
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        Log.e(this.getClass().getSimpleName(),"onPause");
     }
 }

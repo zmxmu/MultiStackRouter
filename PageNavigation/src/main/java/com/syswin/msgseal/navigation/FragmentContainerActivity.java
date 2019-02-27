@@ -48,7 +48,6 @@ public class FragmentContainerActivity extends Activity {
         }
 
         enterFragment.setArguments(bundle);
-
         getFragmentManager().beginTransaction().add(R.id.content, enterFragment).commitAllowingStateLoss();
         if(exitFragment!=null){
             final ValueAnimator valueAnimator = ValueAnimator.ofInt(mFragmentWidth, 0).setDuration(ANIMATION_DURATION);
@@ -74,14 +73,12 @@ public class FragmentContainerActivity extends Activity {
                         exitFragment.onHide();
                         getFragmentManager().beginTransaction().hide(exitFragment).commitAllowingStateLoss();
                     }
-                    if (enterFragment != null) {
-                        enterFragment.onShow();
-                    }
                 }
             });
 
             valueAnimator.start();
         }
+        enterFragment.onShow();
     }
 
     private int getFragmentWidth() {

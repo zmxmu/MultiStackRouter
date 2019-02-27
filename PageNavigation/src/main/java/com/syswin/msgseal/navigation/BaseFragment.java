@@ -2,6 +2,7 @@ package com.syswin.msgseal.navigation;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.syswin.msgseal.navigation.model.FragmentItem;
 import com.syswin.msgseal.navigation.model.PageItem;
@@ -10,7 +11,7 @@ import java.lang.ref.WeakReference;
 import java.util.Iterator;
 import java.util.Stack;
 
-public class BaseFragment extends Fragment {
+public class BaseFragment extends Fragment implements PageLifeCycle{
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -37,11 +38,37 @@ public class BaseFragment extends Fragment {
             }
         }
     }
-    public void onShow() {
 
+    @Override
+    public void onShow() {
+        Log.e(this.getClass().getSimpleName(),"onShow");
     }
 
+    @Override
     public void onHide() {
-
+        Log.e(this.getClass().getSimpleName(),"onHide");
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        //onShow();
+        //Log.e(this.getClass().getSimpleName(),"onResume");
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        //onHide();
+        //Log.e(this.getClass().getSimpleName(),"onPause");
+    }
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+//        if(hidden){
+//            onHide();
+//        }
+//        else{
+//            onShow();
+//        }
+//        Log.e(this.getClass().getSimpleName(),"onHiddenChanged"+hidden);
     }
 }
