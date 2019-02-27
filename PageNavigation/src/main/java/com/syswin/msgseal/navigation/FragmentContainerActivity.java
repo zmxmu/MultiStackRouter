@@ -2,9 +2,7 @@ package com.syswin.msgseal.navigation;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 
-import com.syswin.msgseal.navigation.animator.IAnimator;
 import com.syswin.msgseal.navigation.animator.PageTransferAnimator;
 import com.syswin.msgseal.navigation.animator.SlideLeftRightAnimator;
 import com.syswin.msgseal.navigation.animator.SlideUpDownAnimator;
