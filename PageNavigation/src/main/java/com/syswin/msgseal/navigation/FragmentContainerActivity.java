@@ -1,18 +1,21 @@
 package com.syswin.msgseal.navigation;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 
+import com.syswin.msgseal.navigation.animator.IAnimator;
+import com.syswin.msgseal.navigation.animator.SlideLeftRightAnimator;
 
 import java.lang.reflect.Constructor;
 
+import static com.syswin.msgseal.navigation.RouterManager.ANIMATOR_SLIDE_LEFT_RIGHT;
+
 public class FragmentContainerActivity extends Activity {
-    public static final int ANIMATION_DURATION = 300;
+
     private int mFragmentWidth;
+    private IAnimator mAnimator;
+    private int mAnimatorType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +23,8 @@ public class FragmentContainerActivity extends Activity {
         Bundle bundle = getIntent().getExtras();
         if(bundle !=null){
             addFragment(bundle
-                    , bundle.getString(RouterManager.BUNDLE_KEY_FRAGMENT));
+                    , bundle.getString(RouterManager.BUNDLE_KEY_FRAGMENT)
+                            , bundle.getInt(RouterManager.BUNDLE_KEY_ANIMATOR_TYPE));
         }
         mFragmentWidth = getFragmentWidth();
     }
@@ -34,10 +38,11 @@ public class FragmentContainerActivity extends Activity {
         }
         return null;
     }
+
     /**
      * 新加页面
      */
-    public void addFragment(Bundle bundle, String path) {
+    public void addFragment(Bundle bundle, String path,int animatorType) {
         final BaseFragment enterFragment = getFragment(path);
         final BaseFragment exitFragment = RouterManager.getInstance().getTopFragment();
         if (enterFragment == null) {
@@ -46,37 +51,19 @@ public class FragmentContainerActivity extends Activity {
         if (bundle == null) {
             bundle = new Bundle();
         }
-
         enterFragment.setArguments(bundle);
+        if(mAnimator == null || animatorType != mAnimatorType){
+            mAnimatorType = animatorType;
+            switch (animatorType){
+                case ANIMATOR_SLIDE_LEFT_RIGHT:
+                    mAnimator = new SlideLeftRightAnimator(this);
+                    break;
+            }
+
+        }
         getFragmentManager().beginTransaction().add(R.id.content, enterFragment).commitAllowingStateLoss();
-        if(exitFragment!=null){
-            final ValueAnimator valueAnimator = ValueAnimator.ofInt(mFragmentWidth, 0).setDuration(ANIMATION_DURATION);
-            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    int value = (int) animation.getAnimatedValue();
-                    if (exitFragment != null && exitFragment.getView() != null) {
-                        exitFragment.getView().setX(value - mFragmentWidth);
-                    }
-                    if (enterFragment != null && enterFragment.getView() != null) {
-                        enterFragment.getView().setX(value);
-                    }
-                }
-            });
-
-            valueAnimator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    valueAnimator.removeListener(this);
-                    valueAnimator.removeAllUpdateListeners();
-                    if (exitFragment != null) {
-                        exitFragment.onHide();
-                        getFragmentManager().beginTransaction().hide(exitFragment).commitAllowingStateLoss();
-                    }
-                }
-            });
-
-            valueAnimator.start();
+        if(exitFragment!=null && mAnimator!=null){
+            mAnimator.animatorEnter(exitFragment,enterFragment,mFragmentWidth);
         }
         enterFragment.onShow();
     }
@@ -99,36 +86,11 @@ public class FragmentContainerActivity extends Activity {
                 finish();
             }
             else{
-                fragmentTransfer(exitFragment,enterFragment);
+                getFragmentManager().beginTransaction().show(enterFragment).commit();
+                if(mAnimator!=null){
+                    mAnimator.animatorExit(exitFragment,enterFragment,mFragmentWidth);
+                }
             }
         }
-    }
-    public void fragmentTransfer(final BaseFragment exitFragment,final BaseFragment enterFragment){
-        getFragmentManager().beginTransaction().show(enterFragment).commit();
-
-        final ValueAnimator valueAnimator = ValueAnimator.ofInt(0,mFragmentWidth).setDuration(ANIMATION_DURATION);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int value = (int) animation.getAnimatedValue();
-                if (exitFragment != null && exitFragment.getView() != null) {
-                    exitFragment.getView().setX(value);
-                }
-                if (enterFragment != null && enterFragment.getView() != null) {
-                    enterFragment.getView().setX(value - mFragmentWidth);
-                }
-            }
-        });
-
-        valueAnimator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                valueAnimator.removeListener(this);
-                valueAnimator.removeAllUpdateListeners();
-                getFragmentManager().beginTransaction().remove(exitFragment).commit();
-            }
-        });
-
-        valueAnimator.start();
     }
 }

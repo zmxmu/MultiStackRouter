@@ -22,11 +22,14 @@ import java.util.Stack;
  */
 
 public class RouterManager {
-
+    public static final String BUNDLE_KEY_ANIMATOR_TYPE = "animator_type";
     public static final String BUNDLE_KEY_FRAGMENT = "fragment_class";
     public static final String BUNDLE_KEY_PATH = "route_path";
     public static final int GOTO_ACTION_NORMAL = 0;
     public static final int GOTO_ACTION_SINGLE = 1;
+
+    public static final int ANIMATOR_SLIDE_LEFT_RIGHT = 0;
+    public static final int ANIMATOR_SLIDE_UP_DOWN = 1;
 
     private RouterManager(){};
     private static volatile RouterManager instance;
@@ -66,18 +69,21 @@ public class RouterManager {
         }
         return result;
     }
-    public boolean goTo(Context context, String path, int actionType, Bundle bundle){
+    public boolean goTo(Context context, String path, int actionType, Bundle bundle,int animatorType){
         if(bundle == null){
             bundle = new Bundle();
         }
         bundle.putString(BUNDLE_KEY_PATH,path);
         switch (actionType){
             case GOTO_ACTION_NORMAL:
-                return new NormalGotoAction(context,path,bundle,getItemType(path)).gotoPage();
+                return new NormalGotoAction(context,path,bundle,getItemType(path)).gotoPage(animatorType);
             case GOTO_ACTION_SINGLE:
-                return new SingleGotoAction(context,path,bundle,getItemType(path)).gotoPage();
+                return new SingleGotoAction(context,path,bundle,getItemType(path)).gotoPage(animatorType);
         }
         return false;
+    }
+    public boolean goTo(Context context, String path, int actionType, Bundle bundle){
+        return goTo(context,path,actionType,bundle,ANIMATOR_SLIDE_LEFT_RIGHT);
     }
 
     public boolean goBack(Context context, String path,Bundle bundle){

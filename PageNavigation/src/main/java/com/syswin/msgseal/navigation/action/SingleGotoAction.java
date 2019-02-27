@@ -18,7 +18,7 @@ public class SingleGotoAction extends GotoAction {
     }
 
     @Override
-    public boolean gotoPage() {
+    public boolean gotoPage(int animatorType) {
         int index =  RouterManager.getInstance().getPathIndex(mPath);
         Stack<PageItem> stack = RouterManager.getInstance().getStack();
         if(index == (stack.size()-1)){

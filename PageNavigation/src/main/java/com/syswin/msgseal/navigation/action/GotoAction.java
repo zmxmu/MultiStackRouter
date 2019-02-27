@@ -17,6 +17,6 @@ public abstract class GotoAction {
         mBundle = bundle;
         mItemType = itemType;
     }
-    abstract boolean gotoPage();
+    abstract boolean gotoPage(int animatorType);
 
 }
