@@ -4,11 +4,13 @@ import com.google.auto.service.AutoService;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -67,18 +69,25 @@ public class RouteProcessor extends AbstractProcessor {
         MethodSpec.Builder initMethodBuilder =
                 MethodSpec.methodBuilder("initPageMap").addModifiers(Modifier.PUBLIC,
                         Modifier.STATIC).addParameter(mapSpec);
-
+        ArrayList<FieldSpec> classFieldBuilderList = new ArrayList<>();
         for (Element element : elements) {
             PageNavigationRoute route = element.getAnnotation(PageNavigationRoute.class);
             String url = route.url();
             if (null != url && !"".equals(url)) {
                 initMethodBuilder.addStatement("routerMap.put($S,$T.class)", url, ClassName.get
                         ((TypeElement) element));
+                classFieldBuilderList.add(FieldSpec.builder(
+                        Class.class,url.replace('.','_'))
+                        .addModifiers(Modifier.PRIVATE, Modifier.FINAL, Modifier.STATIC)
+                        .initializer("$T.class", ClassName.get((TypeElement) element)).build());
             }
         }
-
-        return TypeSpec.classBuilder("RouteMap").addMethod(initMethodBuilder.build())
-                .addModifiers(Modifier.PUBLIC).build();
+        TypeSpec.Builder builder = TypeSpec.classBuilder("RouteMap").addMethod(initMethodBuilder.build())
+                .addModifiers(Modifier.PUBLIC);
+        for(FieldSpec fieldSpec:classFieldBuilderList){
+            builder.addField(fieldSpec);
+        }
+        return builder.build();
     }
 
     @Override

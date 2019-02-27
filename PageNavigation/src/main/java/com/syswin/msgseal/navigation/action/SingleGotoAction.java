@@ -7,45 +7,49 @@ import com.syswin.msgseal.navigation.model.ActivityItem;
 import com.syswin.msgseal.navigation.BaseFragment;
 import com.syswin.msgseal.navigation.FragmentContainerActivity;
 import com.syswin.msgseal.navigation.model.FragmentItem;
-import com.syswin.msgseal.navigation.model.RouterItem;
+import com.syswin.msgseal.navigation.model.PageItem;
 import com.syswin.msgseal.navigation.RouterManager;
 
 import java.util.Stack;
 
-public class SingleGotoAction implements GotoAction {
+public class SingleGotoAction extends GotoAction {
+    public SingleGotoAction(Context context, String path, Bundle bundle,int itemType) {
+        super(context, path, bundle,itemType);
+    }
+
     @Override
-    public boolean gotoPage(Context context, String path, Bundle bundle, int itemType) {
-        int index =  RouterManager.getInstance().getPathIndex(path);
-        Stack<RouterItem> stack = RouterManager.getInstance().getStack();
+    public boolean gotoPage() {
+        int index =  RouterManager.getInstance().getPathIndex(mPath);
+        Stack<PageItem> stack = RouterManager.getInstance().getStack();
         if(index == (stack.size()-1)){
             return false;
         }
-        switch (itemType){
-            case RouterItem.ROUTER_TYPE_ACTIVITY:
+        switch (mItemType){
+            case PageItem.ROUTER_TYPE_ACTIVITY:
                 if(index>=0){
                     for(int i = stack.size()-1;i>index;i--){
-                        RouterItem currentItem = stack.get(i);
-                        if(currentItem.getType() == RouterItem.ROUTER_TYPE_ACTIVITY
-                                || currentItem.getType() == RouterItem.ROUTER_TYPE_CONTAINER){
+                        PageItem currentItem = stack.get(i);
+                        if(currentItem.getType() == PageItem.ROUTER_TYPE_ACTIVITY
+                                || currentItem.getType() == PageItem.ROUTER_TYPE_CONTAINER){
                             ((ActivityItem)currentItem).getActivityWR().get().finish();
                         }
                     }
                 }
                 else{
-                    RouterManager.getInstance().goTo(context,path,new NormalGotoAction(),bundle);
+                    RouterManager.getInstance().goTo(mContext,mPath,RouterManager.GOTO_ACTION_NORMAL,mBundle);
                 }
                 break;
-            case RouterItem.ROUTER_TYPE_FRAGMENT:
+            case PageItem.ROUTER_TYPE_FRAGMENT:
                 if(index>0){
                     BaseFragment fragment = ((FragmentItem)stack.get(index)).getFragmentWR().get();
                     FragmentContainerActivity container = (FragmentContainerActivity)fragment.getActivity();
                     for(int i = stack.size()-1;i>index;i--){
-                        RouterItem currentItem = stack.get(i);
-                        if(currentItem.getType() == RouterItem.ROUTER_TYPE_ACTIVITY
-                                || currentItem.getType() == RouterItem.ROUTER_TYPE_CONTAINER){
+                        PageItem currentItem = stack.get(i);
+                        if(currentItem.getType() == PageItem.ROUTER_TYPE_ACTIVITY
+                                || currentItem.getType() == PageItem.ROUTER_TYPE_CONTAINER){
                             ((ActivityItem)currentItem).getActivityWR().get().finish();
                         }
-                        else if(currentItem.getType() == RouterItem.ROUTER_TYPE_FRAGMENT){
+                        else if(currentItem.getType() == PageItem.ROUTER_TYPE_FRAGMENT){
                             BaseFragment currentFragment = ((FragmentItem)currentItem).getFragmentWR().get();
                             FragmentContainerActivity currentContainer = (FragmentContainerActivity)currentFragment.getActivity();
                             currentContainer.getFragmentManager().beginTransaction().remove(currentFragment).commit();
@@ -56,7 +60,7 @@ public class SingleGotoAction implements GotoAction {
 
                 }
                 else{
-                    RouterManager.getInstance().goTo(context,path,new NormalGotoAction(),bundle);
+                    RouterManager.getInstance().goTo(mContext,mPath,RouterManager.GOTO_ACTION_NORMAL,mBundle);
                 }
                 break;
         }

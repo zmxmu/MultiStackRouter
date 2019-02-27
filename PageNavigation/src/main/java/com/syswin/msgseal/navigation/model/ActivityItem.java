@@ -8,7 +8,7 @@ import java.lang.ref.WeakReference;
  * Created by zhengmin on 2019/2/21.
  */
 
-public class ActivityItem extends RouterItem {
+public class ActivityItem extends PageItem {
 
     WeakReference<Activity> mActivityWR;
     int mType;

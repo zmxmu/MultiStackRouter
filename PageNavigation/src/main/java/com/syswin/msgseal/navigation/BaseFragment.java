@@ -4,7 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 
 import com.syswin.msgseal.navigation.model.FragmentItem;
-import com.syswin.msgseal.navigation.model.RouterItem;
+import com.syswin.msgseal.navigation.model.PageItem;
 
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
@@ -19,16 +19,16 @@ public class BaseFragment extends Fragment {
         if(bundle!=null){
             String routerPath=bundle.getString(RouterManager.BUNDLE_KEY_FRAGMENT);
             RouterManager.getInstance().getStack().push(
-                    new FragmentItem(RouterItem.ROUTER_TYPE_FRAGMENT,weakReference,routerPath));
+                    new FragmentItem(PageItem.ROUTER_TYPE_FRAGMENT,weakReference,routerPath));
         }
     }
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Stack<RouterItem> stack = RouterManager.getInstance().getStack();
-        Iterator<RouterItem> itemIterator = stack.iterator();
+        Stack<PageItem> stack = RouterManager.getInstance().getStack();
+        Iterator<PageItem> itemIterator = stack.iterator();
         while(itemIterator.hasNext()){
-            RouterItem currentItem = itemIterator.next();
+            PageItem currentItem = itemIterator.next();
             if(currentItem instanceof FragmentItem){
                 if(this == (BaseFragment)((FragmentItem) currentItem).getFragmentWR().get()){
                     itemIterator.remove();

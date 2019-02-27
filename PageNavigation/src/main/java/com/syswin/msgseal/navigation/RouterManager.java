@@ -1,5 +1,6 @@
 package com.syswin.msgseal.navigation;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +12,7 @@ import com.syswin.msgseal.navigation.action.NormalGotoAction;
 import com.syswin.msgseal.navigation.action.SingleGotoAction;
 import com.syswin.msgseal.navigation.model.ActivityItem;
 import com.syswin.msgseal.navigation.model.FragmentItem;
-import com.syswin.msgseal.navigation.model.RouterItem;
+import com.syswin.msgseal.navigation.model.PageItem;
 
 import java.util.HashMap;
 import java.util.Stack;
@@ -24,6 +25,9 @@ public class RouterManager {
 
     public static final String BUNDLE_KEY_FRAGMENT = "fragmentCls";
     public static final String BUNDLE_KEY_PATH = "route_path";
+    public static final int GOTO_ACTION_NORMAL = 0;
+    public static final int GOTO_ACTION_SINGLE = 1;
+
     private RouterManager(){};
     private static volatile RouterManager instance;
     public  static  RouterManager  getInstance(){
@@ -42,50 +46,43 @@ public class RouterManager {
     public HashMap<String, Class> getRouterMap() {
         return mRouterMap;
     }
-    public Stack<RouterItem> getStack() {
+    public Stack<PageItem> getStack() {
         return mStack;
     }
 
-    private Stack<RouterItem> mStack = new Stack<>();
-    private int getItemType(Class clz){
-        int result  = RouterItem.ROUTER_TYPE_NONE;
+    private Stack<PageItem> mStack = new Stack<>();
 
-        while(!TextUtils.equals(clz.getSimpleName(),"Object")){
-            if(TextUtils.equals(clz.getSimpleName(),"BaseFragment")){
-                return RouterItem.ROUTER_TYPE_FRAGMENT;
-            }
-            else if(TextUtils.equals(clz.getSimpleName(),"FragmentContainerActivity")){
-                return RouterItem.ROUTER_TYPE_CONTAINER;
-            }
-            else if(TextUtils.equals(clz.getSimpleName(),"Activity")){
-                return RouterItem.ROUTER_TYPE_ACTIVITY;
-            }
-            else{
-                clz = clz.getSuperclass();
-            }
+    private int getItemType(String path){
+        int result  = PageItem.ROUTER_TYPE_NONE;
+        Class clz = mRouterMap.get(path);
+        if(TextUtils.equals(clz.getSimpleName(),"FragmentContainerActivity")){
+            return PageItem.ROUTER_TYPE_CONTAINER;
+        }
+        else if((Activity.class).isAssignableFrom(clz)){
+            return PageItem.ROUTER_TYPE_ACTIVITY;
+        }
+        else if((BaseFragment.class).isAssignableFrom(clz)){
+            return PageItem.ROUTER_TYPE_FRAGMENT;
         }
         return result;
     }
-    public boolean goTo(Context context, String path, GotoAction action, Bundle bundle){
-        Class clz = mRouterMap.get(path);
-        if(clz == null){
-            return false;
-        }
-        int itemType = getItemType(clz);
-
-        if(itemType == RouterItem.ROUTER_TYPE_NONE){
-            return false;
-        }
+    public boolean goTo(Context context, String path, int actionType, Bundle bundle){
         if(bundle == null){
             bundle = new Bundle();
         }
         bundle.putString(BUNDLE_KEY_PATH,path);
-        return action.gotoPage(context,path,bundle,itemType);
+        switch (actionType){
+            case GOTO_ACTION_NORMAL:
+                return new NormalGotoAction(context,path,bundle,getItemType(path)).gotoPage();
+            case GOTO_ACTION_SINGLE:
+                return new SingleGotoAction(context,path,bundle,getItemType(path)).gotoPage();
+        }
+        return false;
     }
 
     public boolean goBack(Context context, String path,Bundle bundle){
         if(mRouterMap.containsKey(path)){
-            return goTo(context,path,new SingleGotoAction(),bundle);
+            return goTo(context,path,GOTO_ACTION_SINGLE,bundle);
         }
         else{
             return false;
@@ -109,20 +106,20 @@ public class RouterManager {
     }
     public FragmentContainerActivity getLastContainer(){
         for(int i = mStack.size()-1;i>=0;i--){
-            if(mStack.get(i).getType()== RouterItem.ROUTER_TYPE_CONTAINER){
+            if(mStack.get(i).getType()== PageItem.ROUTER_TYPE_CONTAINER){
                 return (FragmentContainerActivity)((ActivityItem)mStack.get(i)).getActivityWR().get();
             }
-            else if(mStack.get(i).getType()== RouterItem.ROUTER_TYPE_ACTIVITY){
+            else if(mStack.get(i).getType()== PageItem.ROUTER_TYPE_ACTIVITY){
                 return null;
             }
         }
         return null;
     }
     public BaseFragment getTopFragment(){
-        RouterItem currentItem;
+        PageItem currentItem;
         if(!mStack.isEmpty()){
-            currentItem = (RouterItem) mStack.peek();
-            if(currentItem.getType() == RouterItem.ROUTER_TYPE_FRAGMENT){
+            currentItem = (PageItem) mStack.peek();
+            if(currentItem.getType() == PageItem.ROUTER_TYPE_FRAGMENT){
                 return ((FragmentItem)currentItem).getFragmentWR().get();
             }
             else{
@@ -134,12 +131,12 @@ public class RouterManager {
         }
     }
     public BaseFragment getSubTopFragment(){
-        RouterItem currentItem;
+        PageItem currentItem;
         if(mStack.size()>2){
             currentItem = mStack.get(mStack.size()-1);
-            if(currentItem!=null && currentItem.getType() == RouterItem.ROUTER_TYPE_FRAGMENT){
+            if(currentItem!=null && currentItem.getType() == PageItem.ROUTER_TYPE_FRAGMENT){
                 currentItem = mStack.get(mStack.size()-2);
-                if(currentItem!=null && currentItem.getType() == RouterItem.ROUTER_TYPE_FRAGMENT){
+                if(currentItem!=null && currentItem.getType() == PageItem.ROUTER_TYPE_FRAGMENT){
                     return ((FragmentItem)currentItem).getFragmentWR().get();
                 }
                 else{

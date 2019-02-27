@@ -8,7 +8,7 @@ import java.lang.ref.WeakReference;
  * Created by zhengmin on 2019/2/21.
  */
 
-public class FragmentItem extends RouterItem {
+public class FragmentItem extends PageItem {
 
     WeakReference<BaseFragment> mFragmentWR;
     int mType;

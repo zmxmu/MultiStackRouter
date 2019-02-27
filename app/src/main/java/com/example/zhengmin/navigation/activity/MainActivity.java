@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
                 bundle.putString("key","test");
                 RouterManager.getInstance().goTo(MainActivity.this,
                         "BlankFragmentA",
-                        new NormalGotoAction(),bundle);
+                        RouterManager.GOTO_ACTION_NORMAL,bundle);
             }
         });
     }

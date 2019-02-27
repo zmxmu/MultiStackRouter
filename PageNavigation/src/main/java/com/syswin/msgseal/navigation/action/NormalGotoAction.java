@@ -5,31 +5,36 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.syswin.msgseal.navigation.FragmentContainerActivity;
-import com.syswin.msgseal.navigation.model.RouterItem;
+import com.syswin.msgseal.navigation.model.PageItem;
 import com.syswin.msgseal.navigation.RouterManager;
 
 import static com.syswin.msgseal.navigation.RouterManager.BUNDLE_KEY_FRAGMENT;
 import static com.syswin.msgseal.navigation.RouterManager.BUNDLE_KEY_PATH;
 
-public class NormalGotoAction implements GotoAction {
+public class NormalGotoAction extends GotoAction {
+
+    public NormalGotoAction(Context context, String path, Bundle bundle,int itemType) {
+        super(context, path, bundle,itemType);
+    }
+
     @Override
-    public boolean gotoPage(Context context, String path, Bundle bundle, int itemType) {
-        switch (itemType){
-            case RouterItem.ROUTER_TYPE_ACTIVITY:
-                RouterManager.getInstance().startNewActivity(context,path,bundle);
+    public boolean gotoPage() {
+        switch (mItemType){
+            case PageItem.ROUTER_TYPE_ACTIVITY:
+                RouterManager.getInstance().startNewActivity(mContext,mPath,mBundle);
                 break;
-            case RouterItem.ROUTER_TYPE_FRAGMENT:
+            case PageItem.ROUTER_TYPE_FRAGMENT:
                 FragmentContainerActivity baseFragmentActivity = RouterManager.getInstance().getLastContainer();
                 if(baseFragmentActivity!=null){
-                    bundle.putString(BUNDLE_KEY_FRAGMENT,path);
-                    baseFragmentActivity.addFragment(bundle,path);
+                    mBundle.putString(BUNDLE_KEY_FRAGMENT,mPath);
+                    baseFragmentActivity.addFragment(mBundle,mPath);
                 }
                 else{
-                    Intent intent = new Intent(context,FragmentContainerActivity.class);
-                    bundle.putString(BUNDLE_KEY_PATH,FragmentContainerActivity.class.getName());
-                    bundle.putString(BUNDLE_KEY_FRAGMENT,path);
-                    intent.putExtras(bundle);
-                    context.startActivity(intent,bundle);
+                    Intent intent = new Intent(mContext,FragmentContainerActivity.class);
+                    mBundle.putString(BUNDLE_KEY_PATH,FragmentContainerActivity.class.getName());
+                    mBundle.putString(BUNDLE_KEY_FRAGMENT,mPath);
+                    intent.putExtras(mBundle);
+                    mContext.startActivity(intent,mBundle);
                 }
                 break;
         }

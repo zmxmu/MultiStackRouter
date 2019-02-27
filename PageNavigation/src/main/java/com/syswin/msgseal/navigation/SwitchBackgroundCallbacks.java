@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.syswin.msgseal.navigation.model.ActivityItem;
-import com.syswin.msgseal.navigation.model.RouterItem;
+import com.syswin.msgseal.navigation.model.PageItem;
 
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
@@ -26,11 +26,11 @@ public class SwitchBackgroundCallbacks implements Application.ActivityLifecycleC
         WeakReference<Activity> activityWeakReference = new WeakReference<Activity>(activity);
         if(TextUtils.equals(routerPath,FragmentContainerActivity.class.getName())){
             RouterManager.getInstance().getStack().push(
-                    new ActivityItem(RouterItem.ROUTER_TYPE_CONTAINER,activityWeakReference,routerPath));
+                    new ActivityItem(PageItem.ROUTER_TYPE_CONTAINER,activityWeakReference,routerPath));
         }
         else{
             RouterManager.getInstance().getStack().push(
-                    new ActivityItem(RouterItem.ROUTER_TYPE_ACTIVITY,activityWeakReference,routerPath));
+                    new ActivityItem(PageItem.ROUTER_TYPE_ACTIVITY,activityWeakReference,routerPath));
         }
     }
 
@@ -61,10 +61,10 @@ public class SwitchBackgroundCallbacks implements Application.ActivityLifecycleC
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        Stack<RouterItem> stack = RouterManager.getInstance().getStack();
-        Iterator<RouterItem> itemIterator = stack.iterator();
+        Stack<PageItem> stack = RouterManager.getInstance().getStack();
+        Iterator<PageItem> itemIterator = stack.iterator();
         while(itemIterator.hasNext()){
-            RouterItem currentItem = itemIterator.next();
+            PageItem currentItem = itemIterator.next();
             if(currentItem instanceof ActivityItem){
                 if(activity == (Activity)((ActivityItem) currentItem).getActivityWR().get()){
                     itemIterator.remove();
