@@ -5,16 +5,17 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 
 import com.syswin.msgseal.navigation.animator.IAnimator;
+import com.syswin.msgseal.navigation.animator.PageTransferAnimator;
 import com.syswin.msgseal.navigation.animator.SlideLeftRightAnimator;
+import com.syswin.msgseal.navigation.animator.SlideUpDownAnimator;
 
 import java.lang.reflect.Constructor;
 
 import static com.syswin.msgseal.navigation.RouterManager.ANIMATOR_SLIDE_LEFT_RIGHT;
+import static com.syswin.msgseal.navigation.RouterManager.ANIMATOR_SLIDE_UP_DOWN;
 
 public class FragmentContainerActivity extends Activity {
-
-    private int mFragmentWidth;
-    private IAnimator mAnimator;
+    private PageTransferAnimator mAnimator;
     private int mAnimatorType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class FragmentContainerActivity extends Activity {
                     , bundle.getString(RouterManager.BUNDLE_KEY_FRAGMENT)
                             , bundle.getInt(RouterManager.BUNDLE_KEY_ANIMATOR_TYPE));
         }
-        mFragmentWidth = getFragmentWidth();
+
     }
     private BaseFragment getFragment(String path) {
         try {
@@ -38,7 +39,19 @@ public class FragmentContainerActivity extends Activity {
         }
         return null;
     }
-
+    private void initAnimator(int animatorType){
+        if(mAnimator == null || animatorType != mAnimatorType){
+            mAnimatorType = animatorType;
+            switch (animatorType){
+                case ANIMATOR_SLIDE_LEFT_RIGHT:
+                    mAnimator = new SlideLeftRightAnimator(this,Utils.getFragmentWidth(this));
+                    break;
+                case ANIMATOR_SLIDE_UP_DOWN:
+                    mAnimator = new SlideUpDownAnimator(this,Utils.getFragmentHeight(this));
+                    break;
+            }
+        }
+    }
     /**
      * 新加页面
      */
@@ -52,27 +65,14 @@ public class FragmentContainerActivity extends Activity {
             bundle = new Bundle();
         }
         enterFragment.setArguments(bundle);
-        if(mAnimator == null || animatorType != mAnimatorType){
-            mAnimatorType = animatorType;
-            switch (animatorType){
-                case ANIMATOR_SLIDE_LEFT_RIGHT:
-                    mAnimator = new SlideLeftRightAnimator(this);
-                    break;
-            }
-
-        }
+        initAnimator(animatorType);
         getFragmentManager().beginTransaction().add(R.id.content, enterFragment).commitAllowingStateLoss();
         if(exitFragment!=null && mAnimator!=null){
-            mAnimator.animatorEnter(exitFragment,enterFragment,mFragmentWidth);
+            mAnimator.animatorEnter(exitFragment,enterFragment);
         }
         enterFragment.onShow();
     }
 
-    private int getFragmentWidth() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindow().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        return displayMetrics.widthPixels;
-    }
 
     @Override
     public void onBackPressed() {
@@ -88,7 +88,7 @@ public class FragmentContainerActivity extends Activity {
             else{
                 getFragmentManager().beginTransaction().show(enterFragment).commit();
                 if(mAnimator!=null){
-                    mAnimator.animatorExit(exitFragment,enterFragment,mFragmentWidth);
+                    mAnimator.animatorExit(exitFragment,enterFragment);
                 }
             }
         }

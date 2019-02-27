@@ -7,9 +7,9 @@ import android.app.Activity;
 
 import com.syswin.msgseal.navigation.BaseFragment;
 
-public class SlideLeftRightAnimator extends PageTransferAnimator {
+public class SlideUpDownAnimator extends PageTransferAnimator {
 
-    public SlideLeftRightAnimator(Activity activity, int value) {
+    public SlideUpDownAnimator(Activity activity, int value) {
         super(activity, value);
     }
 
@@ -21,10 +21,10 @@ public class SlideLeftRightAnimator extends PageTransferAnimator {
             public void onAnimationUpdate(ValueAnimator animation) {
                 int value = (int) animation.getAnimatedValue();
                 if (exitFragment != null && exitFragment.getView() != null) {
-                    exitFragment.getView().setX(value - mValue);
+                    exitFragment.getView().setY(value - mValue);
                 }
                 if (enterFragment != null && enterFragment.getView() != null) {
-                    enterFragment.getView().setX(value);
+                    enterFragment.getView().setY(value);
                 }
             }
         });
@@ -53,10 +53,10 @@ public class SlideLeftRightAnimator extends PageTransferAnimator {
             public void onAnimationUpdate(ValueAnimator animation) {
                 int value = (int) animation.getAnimatedValue();
                 if (exitFragment != null && exitFragment.getView() != null) {
-                    exitFragment.getView().setX(value);
+                    exitFragment.getView().setY(value);
                 }
                 if (enterFragment != null && enterFragment.getView() != null) {
-                    enterFragment.getView().setX(value - mValue);
+                    enterFragment.getView().setY(value - mValue);
                 }
             }
         });

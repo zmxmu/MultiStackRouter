@@ -36,7 +36,7 @@ public class BlankFragmentB extends BaseFragment {
                 Bundle bundle =  new Bundle();
                 bundle.putString("key","abc");
                 RouterManager.getInstance().goTo(getActivity(),"BlankFragmentC",
-                        RouterManager.GOTO_ACTION_NORMAL,bundle);
+                        RouterManager.GOTO_ACTION_NORMAL,bundle,RouterManager.ANIMATOR_SLIDE_UP_DOWN);
             }
         });
         return view;
