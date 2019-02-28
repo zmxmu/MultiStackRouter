@@ -7,6 +7,9 @@ import android.app.Activity;
 
 import com.syswin.msgseal.navigation.BaseFragment;
 
+/*
+侧滑 页面切换动画
+ */
 public class SlideLeftRightAnimator extends PageTransferAnimator {
 
     public SlideLeftRightAnimator(Activity activity, int value) {

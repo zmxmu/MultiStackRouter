@@ -12,7 +12,15 @@ import java.lang.ref.WeakReference;
 import java.util.Iterator;
 import java.util.Stack;
 
+/**
+ * activity生命周期回调callback
+ */
 public class SwitchBackgroundCallbacks implements Application.ActivityLifecycleCallbacks {
+    /**
+     * activity创建时的回调
+     * @param activity
+     * @param bundle
+     */
     @Override
     public void onActivityCreated(Activity activity, Bundle bundle) {
         String routerPath;
@@ -25,10 +33,12 @@ public class SwitchBackgroundCallbacks implements Application.ActivityLifecycleC
         }
         WeakReference<Activity> activityWeakReference = new WeakReference<Activity>(activity);
         if(TextUtils.equals(routerPath,FragmentContainerActivity.class.getName())){
+            //判断属于fragment容器activity，进行压栈处理
             RouterManager.getInstance().getStack().push(
                     new ActivityItem(PageItem.ROUTER_TYPE_CONTAINER,activityWeakReference,routerPath));
         }
         else{
+            //普通activity压栈处理
             RouterManager.getInstance().getStack().push(
                     new ActivityItem(PageItem.ROUTER_TYPE_ACTIVITY,activityWeakReference,routerPath));
         }
@@ -59,6 +69,10 @@ public class SwitchBackgroundCallbacks implements Application.ActivityLifecycleC
 
     }
 
+    /**
+     * activity销毁时的回调
+     * @param activity
+     */
     @Override
     public void onActivityDestroyed(Activity activity) {
         Stack<PageItem> stack = RouterManager.getInstance().getStack();

@@ -1,5 +1,8 @@
 package com.syswin.msgseal.navigation.model;
 
+/**
+ * 混合栈元素 基类
+ */
 public abstract class PageItem {
     public static final int ROUTER_TYPE_NONE = 0;
     public static final int ROUTER_TYPE_ACTIVITY = 1;

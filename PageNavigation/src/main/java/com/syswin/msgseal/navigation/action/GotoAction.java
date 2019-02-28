@@ -7,6 +7,9 @@ import android.text.TextUtils;
 
 import com.syswin.msgseal.navigation.model.PageItem;
 
+/*
+跳转基类
+ */
 public abstract class GotoAction {
     Activity mActivity;
     String mPath;

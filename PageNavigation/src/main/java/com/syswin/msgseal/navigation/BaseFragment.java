@@ -11,6 +11,9 @@ import java.lang.ref.WeakReference;
 import java.util.Iterator;
 import java.util.Stack;
 
+/**
+ * Fragment基类，所有新建的Fragment类都得继承此基类
+ */
 public class BaseFragment extends Fragment implements PageLifeCycle{
     @Override
     public void onCreate(Bundle savedInstanceState){

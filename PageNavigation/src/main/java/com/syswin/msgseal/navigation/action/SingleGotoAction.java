@@ -13,6 +13,9 @@ import com.syswin.msgseal.navigation.model.PageItem;
 
 import java.util.Stack;
 
+/*
+single模式，从栈顶开始查找栈中是否有该页面，有的话激活该页面，清空其上元素
+ */
 public class SingleGotoAction extends GotoAction {
     public SingleGotoAction(Activity activity, String path, Bundle bundle, int itemType) {
         super(activity, path, bundle,itemType);

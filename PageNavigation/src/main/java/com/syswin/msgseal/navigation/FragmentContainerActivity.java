@@ -12,6 +12,9 @@ import java.lang.reflect.Constructor;
 
 import static com.syswin.msgseal.navigation.NavigationHelper.ANIMATOR_FINISH;
 
+/**
+ * Fragment容器activity
+ */
 public class FragmentContainerActivity extends Activity {
     private PageTransferAnimator mAnimator;
     private int mAnimatorType;
@@ -27,6 +30,12 @@ public class FragmentContainerActivity extends Activity {
         }
 
     }
+
+    /**
+     * 根据页面路由获得fragment对象实例
+     * @param path
+     * @return
+     */
     private BaseFragment getFragment(String path) {
         try {
             Class fragmentClazz = RouterManager.getInstance().getRouterMap().get(path);
@@ -39,7 +48,10 @@ public class FragmentContainerActivity extends Activity {
     }
 
     /**
-     * 新加页面
+     * 往容器添加新的fragment
+     * @param bundle 容器参数
+     * @param path 页面路由地址
+     * @param animatorType 切换动效类型
      */
     public void addFragment(Bundle bundle, String path,int animatorType) {
         final BaseFragment enterFragment = getFragment(path);

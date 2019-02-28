@@ -15,6 +15,9 @@ import static com.syswin.msgseal.navigation.RouterManager.BUNDLE_KEY_ANIMATOR_TY
 import static com.syswin.msgseal.navigation.RouterManager.BUNDLE_KEY_FRAGMENT;
 import static com.syswin.msgseal.navigation.RouterManager.BUNDLE_KEY_PATH;
 
+/*
+普通跳转模式，直接在混合栈顶部新建页面item，进行跳转
+ */
 public class NormalGotoAction extends GotoAction {
 
     public NormalGotoAction(Activity activity, String path, Bundle bundle, int itemType) {
