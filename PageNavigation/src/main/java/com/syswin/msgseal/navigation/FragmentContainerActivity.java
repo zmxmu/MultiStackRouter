@@ -73,10 +73,12 @@ public class FragmentContainerActivity extends Activity {
         }
         final BaseFragment enterFragment = RouterManager.getInstance().getSubTopFragment();
         if(enterFragment == null){
+            exitFragment.onHide();
             finish();
         }
         else{
             getFragmentManager().beginTransaction().show(enterFragment).commit();
+            enterFragment.onShow();
             mAnimator = NavigationHelper.initAnimator(this,topItem.getAnimatorType());
             if(mAnimator!=null){
                 mAnimator.animatorExit(exitFragment,enterFragment);

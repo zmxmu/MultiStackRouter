@@ -65,6 +65,7 @@ public class SingleGotoAction extends GotoAction {
                     }
 
                     container.getFragmentManager().beginTransaction().show(enterFragment).commit();
+                    enterFragment.onShow();
                     NavigationHelper.initAnimator(container,animatorType).animatorExit(exitFragment,enterFragment);
 //                    enterFragment.getView().setX(0);
 
