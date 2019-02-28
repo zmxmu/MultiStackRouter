@@ -8,9 +8,9 @@ import android.view.View;
 import com.example.zhengmin.navigation.R;
 import com.syswin.msgseal.navigation.BaseActivity;
 import com.syswin.msgseal.navigation.RouterManager;
-import com.syswin.msgseal.routeprocessor.PageNavigationRoute;
+import com.syswin.msgseal.routeprocessor.PageRoute;
 
-@PageNavigationRoute(url = "MainActivity3")
+@PageRoute(url = "MainActivity3")
 public class MainActivity3 extends BaseActivity {
 
     @Override

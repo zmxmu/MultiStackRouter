@@ -11,7 +11,7 @@ import com.example.zhengmin.navigation.R;
 import com.syswin.msgseal.navigation.BaseFragment;
 import com.syswin.msgseal.navigation.action.NormalGotoAction;
 import com.syswin.msgseal.navigation.RouterManager;
-import com.syswin.msgseal.routeprocessor.PageNavigationRoute;
+import com.syswin.msgseal.routeprocessor.PageRoute;
 
 import static com.syswin.msgseal.navigation.NavigationHelper.ANIMATOR_SLIDE_UP_DOWN;
 
@@ -19,7 +19,7 @@ import static com.syswin.msgseal.navigation.NavigationHelper.ANIMATOR_SLIDE_UP_D
 /**
  * A simple {@link Fragment} subclass.
  */
-@PageNavigationRoute(url = "BlankFragmentB")
+@PageRoute(url = "BlankFragmentB")
 public class BlankFragmentB extends BaseFragment {
 
 

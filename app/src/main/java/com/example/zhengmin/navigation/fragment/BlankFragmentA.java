@@ -10,10 +10,10 @@ import com.example.zhengmin.navigation.R;
 import com.syswin.msgseal.navigation.BaseFragment;
 import com.syswin.msgseal.navigation.RouterManager;
 import com.syswin.msgseal.navigation.action.NormalGotoAction;
-import com.syswin.msgseal.routeprocessor.PageNavigationRoute;
+import com.syswin.msgseal.routeprocessor.PageRoute;
 
 
-@PageNavigationRoute(url = "BlankFragmentA")
+@PageRoute(url = "BlankFragmentA")
 public class BlankFragmentA extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

@@ -2,9 +2,9 @@ package com.syswin.msgseal.routeprocessor;
 
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
@@ -17,7 +17,6 @@ import java.util.Set;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
-import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
@@ -30,20 +29,17 @@ import javax.lang.model.element.TypeElement;
 @AutoService(Processor.class)
 public class RouteProcessor extends AbstractProcessor {
 
-    private Messager mMessager;
-
     private Filer mFiler;
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
         mFiler = processingEnv.getFiler();
-        mMessager = processingEnv.getMessager();
     }
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(PageNavigationRoute.class);
+        Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(PageRoute.class);
         TypeSpec spec = processElements(elements);
         try {
             if (spec != null) {
@@ -71,7 +67,7 @@ public class RouteProcessor extends AbstractProcessor {
                         Modifier.STATIC).addParameter(mapSpec);
         ArrayList<FieldSpec> classFieldBuilderList = new ArrayList<>();
         for (Element element : elements) {
-            PageNavigationRoute route = element.getAnnotation(PageNavigationRoute.class);
+            PageRoute route = element.getAnnotation(PageRoute.class);
             String url = route.url();
             if (null != url && !"".equals(url)) {
                 initMethodBuilder.addStatement("routerMap.put($S,$T.class)", url, ClassName.get
@@ -93,7 +89,7 @@ public class RouteProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> set = new LinkedHashSet<>();
-        set.add(PageNavigationRoute.class.getCanonicalName());
+        set.add(PageRoute.class.getCanonicalName());
         return set;
     }
 

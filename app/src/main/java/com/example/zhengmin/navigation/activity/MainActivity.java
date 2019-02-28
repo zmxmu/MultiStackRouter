@@ -9,9 +9,9 @@ import com.example.zhengmin.navigation.R;
 import com.syswin.msgseal.navigation.BaseActivity;
 import com.syswin.msgseal.navigation.action.NormalGotoAction;
 import com.syswin.msgseal.navigation.RouterManager;
-import com.syswin.msgseal.routeprocessor.PageNavigationRoute;
+import com.syswin.msgseal.routeprocessor.PageRoute;
 
-@PageNavigationRoute(url = "com.example.zhengmin.navigation.activity.MainActivity")
+@PageRoute(url = "com.example.zhengmin.navigation.activity.MainActivity")
 public class MainActivity extends BaseActivity {
 
     @Override

@@ -12,12 +12,12 @@ import com.syswin.msgseal.navigation.BaseFragment;
 import com.syswin.msgseal.navigation.RouterManager;
 import com.syswin.msgseal.navigation.action.NormalGotoAction;
 import com.syswin.msgseal.navigation.action.SingleGotoAction;
-import com.syswin.msgseal.routeprocessor.PageNavigationRoute;
+import com.syswin.msgseal.routeprocessor.PageRoute;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-@PageNavigationRoute(url = "BlankFragmentC")
+@PageRoute(url = "BlankFragmentC")
 public class BlankFragmentC extends BaseFragment {
 
 
