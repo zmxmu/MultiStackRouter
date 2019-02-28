@@ -2,6 +2,7 @@ package com.syswin.msgseal.navigation;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.syswin.msgseal.navigation.animator.PageTransferAnimator;
 import com.syswin.msgseal.navigation.model.FragmentItem;
@@ -89,5 +90,15 @@ public class FragmentContainerActivity extends Activity {
                 mAnimator.animatorExit(exitFragment,enterFragment);
             }
         }
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.e(this.getClass().getSimpleName(),"onResume");
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        Log.e(this.getClass().getSimpleName(),"onPause");
     }
 }

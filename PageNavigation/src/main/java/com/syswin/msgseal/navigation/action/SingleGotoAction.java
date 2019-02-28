@@ -32,7 +32,11 @@ public class SingleGotoAction extends GotoAction {
                         PageItem currentItem = stack.get(i);
                         if(currentItem.getType() == PageItem.ROUTER_TYPE_ACTIVITY
                                 || currentItem.getType() == PageItem.ROUTER_TYPE_CONTAINER){
-                            ((ActivityItem)currentItem).getActivityWR().get().finish();
+                            Activity activity =((ActivityItem)currentItem).getActivityWR().get();
+                            activity.finish();
+                            if(i == stack.size()-1){
+                                NavigationHelper.executeExitAnimator(activity);
+                            }
                         }
                     }
                 }

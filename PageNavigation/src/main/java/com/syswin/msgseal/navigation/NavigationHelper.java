@@ -7,6 +7,7 @@ import android.util.DisplayMetrics;
 import com.syswin.msgseal.navigation.animator.PageTransferAnimator;
 import com.syswin.msgseal.navigation.animator.SlideLeftRightAnimator;
 import com.syswin.msgseal.navigation.animator.SlideUpDownAnimator;
+import com.syswin.msgseal.navigation.model.PageItem;
 
 public class NavigationHelper {
     public static final int ANIMATOR_START = 0;
@@ -29,5 +30,12 @@ public class NavigationHelper {
                 return new SlideUpDownAnimator(activity,displayMetrics.heightPixels);
         }
         return null;
+    }
+    public static void executeExitAnimator(Activity activity){
+        PageItem topItem = RouterManager.getInstance().getTopItem();
+        int animatorArray[]=ANIMATOR_ARRAY[topItem.getAnimatorType()][ANIMATOR_FINISH];
+        if(animatorArray!=null&&animatorArray.length==2){
+            activity.overridePendingTransition(animatorArray[0], animatorArray[1]);
+        }
     }
 }

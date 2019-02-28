@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.syswin.msgseal.navigation.BaseFragment;
 import com.syswin.msgseal.navigation.FragmentContainerActivity;
 import com.syswin.msgseal.navigation.NavigationHelper;
 import com.syswin.msgseal.navigation.RouterManager;
@@ -25,6 +26,10 @@ public class NormalGotoAction extends GotoAction {
         switch (mItemType){
             case PageItem.ROUTER_TYPE_ACTIVITY:
                 RouterManager.getInstance().startNewActivity(mActivity,mPath,mBundle,animatorType);
+                BaseFragment exitFragment = RouterManager.getInstance().getTopFragment();
+                if(exitFragment!= null){
+                    exitFragment.onHide();
+                }
                 break;
             case PageItem.ROUTER_TYPE_FRAGMENT:
                 FragmentContainerActivity baseFragmentActivity = RouterManager.getInstance().getLastContainer();
