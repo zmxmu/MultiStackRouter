@@ -134,6 +134,14 @@ public class RouterManager {
             return null;
         }
     }
+    public PageItem getTopItem(){
+        if(!mStack.isEmpty()){
+            return (PageItem) mStack.peek();
+        }
+        else{
+            return null;
+        }
+    }
     public BaseFragment getSubTopFragment(){
         PageItem currentItem;
         if(mStack.size()>2){

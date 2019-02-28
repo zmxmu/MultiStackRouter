@@ -11,12 +11,9 @@ import java.lang.ref.WeakReference;
 public class ActivityItem extends PageItem {
 
     WeakReference<Activity> mActivityWR;
-    int mType;
     public ActivityItem(int type,WeakReference<Activity> activityWeakReference,String routerPath){
-        super(routerPath);
-        mType = type;
+        super(type,routerPath);
         mActivityWR = activityWeakReference;
-
     }
     @Override
     public Activity getItem() {
@@ -26,10 +23,6 @@ public class ActivityItem extends PageItem {
         return null;
     }
 
-    @Override
-    public int getType() {
-        return mType;
-    }
 
     public WeakReference<Activity> getActivityWR() {
         return mActivityWR;

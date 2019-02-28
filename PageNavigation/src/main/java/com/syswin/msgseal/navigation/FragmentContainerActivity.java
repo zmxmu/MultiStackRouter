@@ -4,13 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.syswin.msgseal.navigation.animator.PageTransferAnimator;
-import com.syswin.msgseal.navigation.animator.SlideLeftRightAnimator;
-import com.syswin.msgseal.navigation.animator.SlideUpDownAnimator;
+import com.syswin.msgseal.navigation.model.FragmentItem;
+import com.syswin.msgseal.navigation.model.PageItem;
 
 import java.lang.reflect.Constructor;
-
-import static com.syswin.msgseal.navigation.RouterManager.ANIMATOR_SLIDE_LEFT_RIGHT;
-import static com.syswin.msgseal.navigation.RouterManager.ANIMATOR_SLIDE_UP_DOWN;
 
 public class FragmentContainerActivity extends Activity {
     private PageTransferAnimator mAnimator;
@@ -65,20 +62,24 @@ public class FragmentContainerActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        final BaseFragment exitFragment = RouterManager.getInstance().getTopFragment();
-        if (exitFragment == null) {
+        PageItem topItem = RouterManager.getInstance().getTopItem();
+        final BaseFragment exitFragment;
+        if(topItem.getType() == PageItem.ROUTER_TYPE_FRAGMENT){
+            exitFragment =  ((FragmentItem)topItem).getFragmentWR().get();
+        }
+        else{
+            exitFragment =null;
+            finish();
+        }
+        final BaseFragment enterFragment = RouterManager.getInstance().getSubTopFragment();
+        if(enterFragment == null){
             finish();
         }
         else{
-            final BaseFragment enterFragment = RouterManager.getInstance().getSubTopFragment();
-            if(enterFragment == null){
-                finish();
-            }
-            else{
-                getFragmentManager().beginTransaction().show(enterFragment).commit();
-                if(mAnimator!=null){
-                    mAnimator.animatorExit(exitFragment,enterFragment);
-                }
+            getFragmentManager().beginTransaction().show(enterFragment).commit();
+            mAnimator = NavigationHelper.initAnimator(this,topItem.getAnimatorType());
+            if(mAnimator!=null){
+                mAnimator.animatorExit(exitFragment,enterFragment);
             }
         }
     }

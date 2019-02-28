@@ -6,15 +6,28 @@ public abstract class PageItem {
     public static final int ROUTER_TYPE_FRAGMENT = 2;
     public static final int ROUTER_TYPE_CONTAINER = 3;
     private String mRouterPath;
+    int mType;
+    private int mAnimatorType;
     abstract Object getItem();
-    public abstract int getType();
     public String getRouterPath(){
         return mRouterPath;
     }
     public void setRouterPath(String Path){
         mRouterPath = Path;
     }
-    public PageItem(String routerPath){
+    public PageItem(int type,String routerPath){
+        mType = type;
         mRouterPath = routerPath;
+    }
+    public PageItem(int type,String routerPath,int animatorType){
+        mType = type;
+        mRouterPath = routerPath;
+        mAnimatorType = animatorType;
+    }
+    public int getAnimatorType() {
+        return mAnimatorType;
+    }
+    public int getType() {
+        return mType;
     }
 }

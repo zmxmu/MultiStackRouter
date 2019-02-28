@@ -70,7 +70,7 @@ public class SingleGotoAction extends GotoAction {
 
                 }
                 else{
-                    RouterManager.getInstance().goTo(mContext,mPath,RouterManager.GOTO_ACTION_NORMAL,mBundle);
+                    RouterManager.getInstance().goTo(mContext,mPath,RouterManager.GOTO_ACTION_NORMAL,mBundle,animatorType);
                 }
                 break;
         }

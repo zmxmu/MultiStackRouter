@@ -27,15 +27,14 @@ public class NormalGotoAction extends GotoAction {
                 break;
             case PageItem.ROUTER_TYPE_FRAGMENT:
                 FragmentContainerActivity baseFragmentActivity = RouterManager.getInstance().getLastContainer();
+                mBundle.putInt(BUNDLE_KEY_ANIMATOR_TYPE,animatorType);
+                mBundle.putString(BUNDLE_KEY_FRAGMENT,mPath);
                 if(baseFragmentActivity!=null){
-                    mBundle.putString(BUNDLE_KEY_FRAGMENT,mPath);
                     baseFragmentActivity.addFragment(mBundle,mPath,animatorType);
                 }
                 else{
                     Intent intent = new Intent(mContext,FragmentContainerActivity.class);
                     mBundle.putString(BUNDLE_KEY_PATH,FragmentContainerActivity.class.getName());
-                    mBundle.putInt(BUNDLE_KEY_ANIMATOR_TYPE,animatorType);
-                    mBundle.putString(BUNDLE_KEY_FRAGMENT,mPath);
                     intent.putExtras(mBundle);
                     mContext.startActivity(intent,mBundle);
                 }

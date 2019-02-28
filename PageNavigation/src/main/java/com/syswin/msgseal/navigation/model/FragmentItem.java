@@ -11,10 +11,10 @@ import java.lang.ref.WeakReference;
 public class FragmentItem extends PageItem {
 
     WeakReference<BaseFragment> mFragmentWR;
-    int mType;
-    public FragmentItem(int type, WeakReference<BaseFragment> fragmentWeakReference,String routerKey){
-        super(routerKey);
-        mType = type;
+
+    public FragmentItem(int type, WeakReference<BaseFragment> fragmentWeakReference,String routerKey,int animatorType){
+        super(type,routerKey,animatorType);
+
         mFragmentWR = fragmentWeakReference;
     }
     @Override

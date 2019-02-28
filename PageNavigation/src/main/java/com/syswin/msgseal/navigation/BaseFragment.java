@@ -19,8 +19,9 @@ public class BaseFragment extends Fragment implements PageLifeCycle{
         Bundle bundle = getArguments();
         if(bundle!=null){
             String routerPath=bundle.getString(RouterManager.BUNDLE_KEY_FRAGMENT);
+            int animatorType = bundle.getInt(RouterManager.BUNDLE_KEY_ANIMATOR_TYPE);
             RouterManager.getInstance().getStack().push(
-                    new FragmentItem(PageItem.ROUTER_TYPE_FRAGMENT,weakReference,routerPath));
+                    new FragmentItem(PageItem.ROUTER_TYPE_FRAGMENT,weakReference,routerPath,animatorType));
         }
     }
     @Override
