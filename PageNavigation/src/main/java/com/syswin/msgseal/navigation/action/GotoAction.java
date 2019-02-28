@@ -1,5 +1,6 @@
 package com.syswin.msgseal.navigation.action;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -7,12 +8,12 @@ import android.text.TextUtils;
 import com.syswin.msgseal.navigation.model.PageItem;
 
 public abstract class GotoAction {
-    Context mContext;
+    Activity mActivity;
     String mPath;
     Bundle mBundle;
     int mItemType;
-    public GotoAction(Context context, String path, Bundle bundle,int itemType){
-        mContext = context;
+    public GotoAction(Activity activity, String path, Bundle bundle, int itemType){
+        mActivity = activity;
         mPath = path;
         mBundle = bundle;
         mItemType = itemType;

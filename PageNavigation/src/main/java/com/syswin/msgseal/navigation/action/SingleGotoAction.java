@@ -1,21 +1,21 @@
 package com.syswin.msgseal.navigation.action;
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.Bundle;
 
-import com.syswin.msgseal.navigation.NavigationHelper;
-import com.syswin.msgseal.navigation.model.ActivityItem;
 import com.syswin.msgseal.navigation.BaseFragment;
 import com.syswin.msgseal.navigation.FragmentContainerActivity;
+import com.syswin.msgseal.navigation.NavigationHelper;
+import com.syswin.msgseal.navigation.RouterManager;
+import com.syswin.msgseal.navigation.model.ActivityItem;
 import com.syswin.msgseal.navigation.model.FragmentItem;
 import com.syswin.msgseal.navigation.model.PageItem;
-import com.syswin.msgseal.navigation.RouterManager;
 
 import java.util.Stack;
 
 public class SingleGotoAction extends GotoAction {
-    public SingleGotoAction(Context context, String path, Bundle bundle,int itemType) {
-        super(context, path, bundle,itemType);
+    public SingleGotoAction(Activity activity, String path, Bundle bundle, int itemType) {
+        super(activity, path, bundle,itemType);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class SingleGotoAction extends GotoAction {
                     }
                 }
                 else{
-                    RouterManager.getInstance().goTo(mContext,mPath,RouterManager.GOTO_ACTION_NORMAL,mBundle);
+                    RouterManager.getInstance().goTo(mActivity,mPath,RouterManager.GOTO_ACTION_NORMAL,mBundle);
                 }
                 break;
             case PageItem.ROUTER_TYPE_FRAGMENT:
@@ -71,7 +71,7 @@ public class SingleGotoAction extends GotoAction {
 
                 }
                 else{
-                    RouterManager.getInstance().goTo(mContext,mPath,RouterManager.GOTO_ACTION_NORMAL,mBundle,animatorType);
+                    RouterManager.getInstance().goTo(mActivity,mPath,RouterManager.GOTO_ACTION_NORMAL,mBundle,animatorType);
                 }
                 break;
         }

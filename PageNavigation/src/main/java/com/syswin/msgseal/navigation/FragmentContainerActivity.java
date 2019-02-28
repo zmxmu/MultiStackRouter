@@ -9,6 +9,8 @@ import com.syswin.msgseal.navigation.model.PageItem;
 
 import java.lang.reflect.Constructor;
 
+import static com.syswin.msgseal.navigation.NavigationHelper.ANIMATOR_FINISH;
+
 public class FragmentContainerActivity extends Activity {
     private PageTransferAnimator mAnimator;
     private int mAnimatorType;
@@ -63,6 +65,7 @@ public class FragmentContainerActivity extends Activity {
     @Override
     public void onBackPressed() {
         PageItem topItem = RouterManager.getInstance().getTopItem();
+        int animatorArray[]=NavigationHelper.ANIMATOR_ARRAY[topItem.getAnimatorType()][ANIMATOR_FINISH];
         final BaseFragment exitFragment;
         if(topItem.getType() == PageItem.ROUTER_TYPE_FRAGMENT){
             exitFragment =  ((FragmentItem)topItem).getFragmentWR().get();
@@ -70,11 +73,13 @@ public class FragmentContainerActivity extends Activity {
         else{
             exitFragment =null;
             finish();
+            overridePendingTransition(animatorArray[0], animatorArray[1]);
         }
         final BaseFragment enterFragment = RouterManager.getInstance().getSubTopFragment();
         if(enterFragment == null){
             exitFragment.onHide();
             finish();
+            overridePendingTransition(animatorArray[0], animatorArray[1]);
         }
         else{
             getFragmentManager().beginTransaction().show(enterFragment).commit();

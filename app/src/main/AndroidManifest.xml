@@ -17,7 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.syswin.msgseal.navigation.FragmentContainerActivity"></activity>
+        <activity android:name="com.syswin.msgseal.navigation.FragmentContainerActivity" />
+        <activity android:name=".activity.MainActivity2"></activity>
     </application>
 
 </manifest>

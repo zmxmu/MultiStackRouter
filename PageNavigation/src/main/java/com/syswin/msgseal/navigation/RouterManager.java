@@ -1,13 +1,11 @@
 package com.syswin.msgseal.navigation;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.syswin.msgseal.navigation.action.GotoAction;
 import com.syswin.msgseal.navigation.action.NormalGotoAction;
 import com.syswin.msgseal.navigation.action.SingleGotoAction;
 import com.syswin.msgseal.navigation.model.ActivityItem;
@@ -16,6 +14,9 @@ import com.syswin.msgseal.navigation.model.PageItem;
 
 import java.util.HashMap;
 import java.util.Stack;
+
+import static com.syswin.msgseal.navigation.NavigationHelper.ANIMATOR_SLIDE_LEFT_RIGHT;
+import static com.syswin.msgseal.navigation.NavigationHelper.ANIMATOR_START;
 
 /**
  * Created by zhengmin on 2019/2/21.
@@ -27,9 +28,6 @@ public class RouterManager {
     public static final String BUNDLE_KEY_PATH = "route_path";
     public static final int GOTO_ACTION_NORMAL = 0;
     public static final int GOTO_ACTION_SINGLE = 1;
-
-    public static final int ANIMATOR_SLIDE_LEFT_RIGHT = 0;
-    public static final int ANIMATOR_SLIDE_UP_DOWN = 1;
 
     private RouterManager(){};
     private static volatile RouterManager instance;
@@ -69,36 +67,38 @@ public class RouterManager {
         }
         return result;
     }
-    public boolean goTo(Context context, String path, int actionType, Bundle bundle,int animatorType){
+    public boolean goTo(Activity activity, String path, int actionType, Bundle bundle,int animatorType){
         if(bundle == null){
             bundle = new Bundle();
         }
         bundle.putString(BUNDLE_KEY_PATH,path);
         switch (actionType){
             case GOTO_ACTION_NORMAL:
-                return new NormalGotoAction(context,path,bundle,getItemType(path)).gotoPage(animatorType);
+                return new NormalGotoAction(activity,path,bundle,getItemType(path)).gotoPage(animatorType);
             case GOTO_ACTION_SINGLE:
-                return new SingleGotoAction(context,path,bundle,getItemType(path)).gotoPage(animatorType);
+                return new SingleGotoAction(activity,path,bundle,getItemType(path)).gotoPage(animatorType);
         }
         return false;
     }
-    public boolean goTo(Context context, String path, int actionType, Bundle bundle){
-        return goTo(context,path,actionType,bundle,ANIMATOR_SLIDE_LEFT_RIGHT);
+    public boolean goTo(Activity activity, String path, int actionType, Bundle bundle){
+        return goTo(activity,path,actionType,bundle,ANIMATOR_SLIDE_LEFT_RIGHT);
     }
 
-    public boolean goBack(Context context, String path,Bundle bundle){
+    public boolean goBack(Activity activity, String path,Bundle bundle){
         if(mRouterMap.containsKey(path)){
-            return goTo(context,path,GOTO_ACTION_SINGLE,bundle);
+            return goTo(activity,path,GOTO_ACTION_SINGLE,bundle);
         }
         else{
             return false;
         }
     }
 
-    public void startNewActivity(Context context,String path,Bundle bundle){
-        Intent intent = new Intent(context,mRouterMap.get(path));
+    public void startNewActivity(Activity activity,String path,Bundle bundle,int animatorType){
+        Intent intent = new Intent(activity,mRouterMap.get(path));
         intent.putExtras(bundle);
-        context.startActivity(intent);
+        activity.startActivity(intent);
+        int animatorArray[]=NavigationHelper.ANIMATOR_ARRAY[animatorType][ANIMATOR_START];
+        activity.overridePendingTransition(animatorArray[0], animatorArray[1]);
     }
     public int getPathIndex(String path){
         for(int i = mStack.size()-1;i>=0;i--){

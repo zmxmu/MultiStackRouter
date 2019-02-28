@@ -13,6 +13,8 @@ import com.syswin.msgseal.navigation.action.NormalGotoAction;
 import com.syswin.msgseal.navigation.RouterManager;
 import com.syswin.msgseal.routeprocessor.PageNavigationRoute;
 
+import static com.syswin.msgseal.navigation.NavigationHelper.ANIMATOR_SLIDE_UP_DOWN;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +38,7 @@ public class BlankFragmentB extends BaseFragment {
                 Bundle bundle =  new Bundle();
                 bundle.putString("key","abc");
                 RouterManager.getInstance().goTo(getActivity(),"BlankFragmentC",
-                        RouterManager.GOTO_ACTION_NORMAL,bundle,RouterManager.ANIMATOR_SLIDE_UP_DOWN);
+                        RouterManager.GOTO_ACTION_NORMAL,bundle,ANIMATOR_SLIDE_UP_DOWN);
             }
         });
         return view;
