@@ -7,8 +7,8 @@ import android.app.Activity;
 
 import com.syswin.msgseal.navigation.BaseFragment;
 
-/*
-上下滑动 页面切换动画
+/**
+ * 上下滑动 页面切换动画
  */
 public class SlideUpDownAnimator extends PageTransferAnimator {
 

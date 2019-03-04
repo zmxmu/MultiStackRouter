@@ -1,4 +1,4 @@
-package com.syswin.msgseal.navigation.model;
+package com.syswin.msgseal.navigation.entity;
 
 import android.app.Activity;
 
@@ -11,13 +11,15 @@ import java.lang.ref.WeakReference;
 public class ActivityItem extends PageItem {
 
     WeakReference<Activity> mActivityWR;
-    public ActivityItem(int type,WeakReference<Activity> activityWeakReference,String routerPath){
-        super(type,routerPath);
+
+    public ActivityItem(int type, WeakReference<Activity> activityWeakReference, String routerPath) {
+        super(type, routerPath);
         mActivityWR = activityWeakReference;
     }
+
     @Override
     public Activity getItem() {
-        if(mActivityWR!=null){
+        if (mActivityWR != null) {
             return mActivityWR.get();
         }
         return null;

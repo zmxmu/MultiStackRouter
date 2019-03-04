@@ -2,8 +2,7 @@ package com.example.zhengmin.navigation;
 
 import android.app.Application;
 
-import com.syswin.msgseal.navigation.RouterManager;
-import com.syswin.msgseal.navigation.SwitchBackgroundCallbacks;
+import com.syswin.msgseal.navigation.PageNavigation;
 import com.syswin.msgseal.routeprocessor.RouteMap;
 
 /**
@@ -15,8 +14,7 @@ public class MixStackApplication extends Application {
     public void onCreate() {
         super.onCreate();
         //注册监听器
-        registerActivityLifecycleCallbacks(new SwitchBackgroundCallbacks());
-        RouteMap.initPageMap(RouterManager.getInstance().getRouterMap());
+        PageNavigation.getInstance().init(this);
+        RouteMap.initPageMap(PageNavigation.getInstance().getRouterMap());
     }
-
 }

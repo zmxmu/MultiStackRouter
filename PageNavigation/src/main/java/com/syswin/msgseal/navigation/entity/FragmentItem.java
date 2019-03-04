@@ -1,4 +1,4 @@
-package com.syswin.msgseal.navigation.model;
+package com.syswin.msgseal.navigation.entity;
 
 import com.syswin.msgseal.navigation.BaseFragment;
 

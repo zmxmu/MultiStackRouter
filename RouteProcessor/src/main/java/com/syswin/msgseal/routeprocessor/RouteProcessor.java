@@ -8,11 +8,12 @@ import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
+import com.syswin.msgseal.navigation.annotation.Page;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -24,7 +25,6 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
-
 
 @AutoService(Processor.class)
 public class RouteProcessor extends AbstractProcessor {
@@ -39,7 +39,7 @@ public class RouteProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(PageRoute.class);
+        Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(Page.class);
         TypeSpec spec = processElements(elements);
         try {
             if (spec != null) {
@@ -59,7 +59,7 @@ public class RouteProcessor extends AbstractProcessor {
         // 1. 构造参数，参数为routerMap
         // 参数类型为:HashMap<String,Class<?>>
         ParameterizedTypeName mapTypeName =
-                ParameterizedTypeName.get(ClassName.get(HashMap.class), ClassName.get(String
+                ParameterizedTypeName.get(ClassName.get(Map.class), ClassName.get(String
                         .class), ClassName.get(Class.class));
         ParameterSpec mapSpec = ParameterSpec.builder(mapTypeName, "routerMap").build();
         MethodSpec.Builder initMethodBuilder =
@@ -67,7 +67,7 @@ public class RouteProcessor extends AbstractProcessor {
                         Modifier.STATIC).addParameter(mapSpec);
         ArrayList<FieldSpec> classFieldBuilderList = new ArrayList<>();
         for (Element element : elements) {
-            PageRoute route = element.getAnnotation(PageRoute.class);
+            Page route = element.getAnnotation(Page.class);
             String url = route.url();
             if (null != url && !"".equals(url)) {
                 initMethodBuilder.addStatement("routerMap.put($S,$T.class)", url, ClassName.get
@@ -89,7 +89,7 @@ public class RouteProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> set = new LinkedHashSet<>();
-        set.add(PageRoute.class.getCanonicalName());
+        set.add(Page.class.getCanonicalName());
         return set;
     }
 

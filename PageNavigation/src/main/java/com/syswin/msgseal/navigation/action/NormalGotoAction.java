@@ -7,13 +7,13 @@ import android.os.Bundle;
 import com.syswin.msgseal.navigation.BaseFragment;
 import com.syswin.msgseal.navigation.FragmentContainerActivity;
 import com.syswin.msgseal.navigation.NavigationHelper;
-import com.syswin.msgseal.navigation.RouterManager;
-import com.syswin.msgseal.navigation.model.PageItem;
+import com.syswin.msgseal.navigation.PageNavigation;
+import com.syswin.msgseal.navigation.entity.PageItem;
 
 import static com.syswin.msgseal.navigation.NavigationHelper.ANIMATOR_START;
-import static com.syswin.msgseal.navigation.RouterManager.BUNDLE_KEY_ANIMATOR_TYPE;
-import static com.syswin.msgseal.navigation.RouterManager.BUNDLE_KEY_FRAGMENT;
-import static com.syswin.msgseal.navigation.RouterManager.BUNDLE_KEY_PATH;
+import static com.syswin.msgseal.navigation.PageNavigation.BUNDLE_KEY_ANIMATOR_TYPE;
+import static com.syswin.msgseal.navigation.PageNavigation.BUNDLE_KEY_FRAGMENT;
+import static com.syswin.msgseal.navigation.PageNavigation.BUNDLE_KEY_PATH;
 
 /*
 普通跳转模式，直接在混合栈顶部新建页面item，进行跳转
@@ -28,14 +28,14 @@ public class NormalGotoAction extends GotoAction {
     public boolean gotoPage(int animatorType) {
         switch (mItemType){
             case PageItem.ROUTER_TYPE_ACTIVITY:
-                RouterManager.getInstance().startNewActivity(mActivity,mPath,mBundle,animatorType);
-                BaseFragment exitFragment = RouterManager.getInstance().getTopFragment();
+                PageNavigation.getInstance().startNewActivity(mActivity,mPath,mBundle,animatorType);
+                BaseFragment exitFragment = PageNavigation.getInstance().getTopFragment();
                 if(exitFragment!= null){
                     exitFragment.onHide();
                 }
                 break;
             case PageItem.ROUTER_TYPE_FRAGMENT:
-                FragmentContainerActivity baseFragmentActivity = RouterManager.getInstance().getLastContainer();
+                FragmentContainerActivity baseFragmentActivity = PageNavigation.getInstance().getLastContainer();
                 mBundle.putInt(BUNDLE_KEY_ANIMATOR_TYPE,animatorType);
                 mBundle.putString(BUNDLE_KEY_FRAGMENT,mPath);
                 if(baseFragmentActivity!=null){

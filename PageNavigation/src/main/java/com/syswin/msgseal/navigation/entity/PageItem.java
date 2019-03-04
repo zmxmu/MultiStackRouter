@@ -1,4 +1,4 @@
-package com.syswin.msgseal.navigation.model;
+package com.syswin.msgseal.navigation.entity;
 
 /**
  * 混合栈元素 基类
@@ -11,25 +11,32 @@ public abstract class PageItem {
     private String mRouterPath;
     int mType;
     private int mAnimatorType;
+
     abstract Object getItem();
-    public String getRouterPath(){
+
+    public String getRouterPath() {
         return mRouterPath;
     }
-    public void setRouterPath(String Path){
+
+    public void setRouterPath(String Path) {
         mRouterPath = Path;
     }
-    public PageItem(int type,String routerPath){
+
+    public PageItem(int type, String routerPath) {
         mType = type;
         mRouterPath = routerPath;
     }
-    public PageItem(int type,String routerPath,int animatorType){
+
+    public PageItem(int type, String routerPath, int animatorType) {
         mType = type;
         mRouterPath = routerPath;
         mAnimatorType = animatorType;
     }
+
     public int getAnimatorType() {
         return mAnimatorType;
     }
+
     public int getType() {
         return mType;
     }

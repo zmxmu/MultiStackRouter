@@ -9,15 +9,15 @@ import android.view.ViewGroup;
 
 import com.example.zhengmin.navigation.R;
 import com.syswin.msgseal.navigation.BaseFragment;
-import com.syswin.msgseal.navigation.RouterManager;
-import com.syswin.msgseal.navigation.action.NormalGotoAction;
-import com.syswin.msgseal.navigation.action.SingleGotoAction;
-import com.syswin.msgseal.routeprocessor.PageRoute;
+import com.syswin.msgseal.navigation.PageNavigation;
+import com.syswin.msgseal.navigation.annotation.Page;
+
+import static com.syswin.msgseal.navigation.NavigationFlags.GOTO_SINGLE;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-@PageRoute(url = "BlankFragmentC")
+@Page(url = "BlankFragmentC")
 public class BlankFragmentC extends BaseFragment {
 
 
@@ -33,13 +33,13 @@ public class BlankFragmentC extends BaseFragment {
         view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle =  new Bundle();
-                bundle.putString("key","abc");
+                Bundle bundle = new Bundle();
+                bundle.putString("key", "abc");
 
 //                RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.navigation.activity.MainActivity",
 //                        RouterManager.GOTO_ACTION_NORMAL,bundle);
-                RouterManager.getInstance().goTo(getActivity(),"MainActivity2",
-                        RouterManager.GOTO_ACTION_SINGLE,bundle);
+                PageNavigation.getInstance().goTo(getActivity(), "MainActivity2",
+                        GOTO_SINGLE, bundle);
 //                RouterManager.getInstance().goTo(getActivity(),"BlankFragmentA",
 //                        new SingleGotoAction(),bundle);
 //                RouterManager.getInstance().goBack(getActivity(),"BlankFragmentA",bundle);

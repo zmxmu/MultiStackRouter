@@ -1,4 +1,4 @@
-package com.syswin.msgseal.routeprocessor;
+package com.syswin.msgseal.navigation.annotation;
 
 
 import java.lang.annotation.Documented;
@@ -17,6 +17,6 @@ import java.lang.annotation.Target;
 @Inherited
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.TYPE)
-public @interface PageRoute {
+public @interface Page {
     String url() default "";
 }

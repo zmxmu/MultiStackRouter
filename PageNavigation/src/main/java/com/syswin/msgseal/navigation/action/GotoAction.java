@@ -1,14 +1,10 @@
 package com.syswin.msgseal.navigation.action;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
 
-import com.syswin.msgseal.navigation.model.PageItem;
-
-/*
-跳转基类
+/**
+ * 跳转基类
  */
 public abstract class GotoAction {
     Activity mActivity;
