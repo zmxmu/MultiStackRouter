@@ -38,8 +38,8 @@ public class BlankFragmentC extends BaseFragment {
 
 //                RouterManager.getInstance().goTo(getActivity(),"com.example.zhengmin.navigation.activity.MainActivity",
 //                        RouterManager.GOTO_ACTION_NORMAL,bundle);
-                PageNavigation.getInstance().goTo(getActivity(), "MainActivity2",
-                        GOTO_SINGLE, bundle);
+                PageNavigation.getInstance().go(getActivity(),
+                        GOTO_SINGLE, "MainActivity2", bundle);
 //                RouterManager.getInstance().goTo(getActivity(),"BlankFragmentA",
 //                        new SingleGotoAction(),bundle);
 //                RouterManager.getInstance().goBack(getActivity(),"BlankFragmentA",bundle);

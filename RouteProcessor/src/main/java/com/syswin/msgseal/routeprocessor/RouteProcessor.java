@@ -40,49 +40,35 @@ public class RouteProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(Page.class);
-        TypeSpec spec = processElements(elements);
-        try {
-            if (spec != null) {
-                JavaFile.builder("com.syswin.msgseal.routeprocessor", spec).build().writeTo(mFiler);
+        for(Element element:elements){
+            TypeSpec spec = processElement(element);
+            try {
+                if (spec != null) {
+                    JavaFile.builder("com.syswin.msgseal.routeprocessor", spec).build().writeTo(mFiler);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return true;
     }
 
-    private TypeSpec processElements(Set<? extends Element> elements) {
-        if (elements == null || elements.size() == 0) {
-            return null;
-        }
+    private TypeSpec processElement(Element element) {
 
-        // 1. 构造参数，参数为routerMap
-        // 参数类型为:HashMap<String,Class<?>>
-        ParameterizedTypeName mapTypeName =
-                ParameterizedTypeName.get(ClassName.get(Map.class), ClassName.get(String
-                        .class), ClassName.get(Class.class));
-        ParameterSpec mapSpec = ParameterSpec.builder(mapTypeName, "routerMap").build();
-        MethodSpec.Builder initMethodBuilder =
-                MethodSpec.methodBuilder("initPageMap").addModifiers(Modifier.PUBLIC,
-                        Modifier.STATIC).addParameter(mapSpec);
-        ArrayList<FieldSpec> classFieldBuilderList = new ArrayList<>();
-        for (Element element : elements) {
-            Page route = element.getAnnotation(Page.class);
-            String url = route.url();
-            if (null != url && !"".equals(url)) {
-                initMethodBuilder.addStatement("routerMap.put($S,$T.class)", url, ClassName.get
-                        ((TypeElement) element));
-                classFieldBuilderList.add(FieldSpec.builder(
-                        Class.class,url.replace('.','_'))
-                        .addModifiers(Modifier.PRIVATE, Modifier.FINAL, Modifier.STATIC)
-                        .initializer("$T.class", ClassName.get((TypeElement) element)).build());
-            }
+        MethodSpec.Builder getClassMethodBuilder =
+                MethodSpec.methodBuilder("getPageClass").addModifiers(Modifier.PUBLIC,
+                        Modifier.STATIC).returns(Class.class);
+
+        Page route = element.getAnnotation(Page.class);
+        String url = route.url();
+        if (null != url && !"".equals(url)) {
+            getClassMethodBuilder.addStatement("return $T.class", ClassName.get
+                    ((TypeElement) element));
         }
-        TypeSpec.Builder builder = TypeSpec.classBuilder("RouteMap").addMethod(initMethodBuilder.build())
+        TypeSpec.Builder builder = TypeSpec.classBuilder("Navigation_"
+                +url.replace('.','_'))
+                .addMethod(getClassMethodBuilder.build())
                 .addModifiers(Modifier.PUBLIC);
-        for(FieldSpec fieldSpec:classFieldBuilderList){
-            builder.addField(fieldSpec);
-        }
         return builder.build();
     }
 

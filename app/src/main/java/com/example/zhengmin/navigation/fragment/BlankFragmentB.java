@@ -35,8 +35,8 @@ public class BlankFragmentB extends BaseFragment {
             public void onClick(View view) {
                 Bundle bundle =  new Bundle();
                 bundle.putString("key","abc");
-                PageNavigation.getInstance().goTo(getActivity(),"BlankFragmentC",
-                        GOTO_NORMAL,bundle,ANIMATOR_SLIDE_UP_DOWN);
+                PageNavigation.getInstance().go(getActivity(),
+                        GOTO_NORMAL,"BlankFragmentC",bundle,ANIMATOR_SLIDE_UP_DOWN);
             }
         });
         return view;

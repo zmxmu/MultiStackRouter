@@ -25,9 +25,8 @@ public class MainActivity3 extends BaseActivity {
 //                MainActivity.this.startActivity(intent);
                 Bundle bundle = new Bundle();
                 bundle.putString("key","test");
-                PageNavigation.getInstance().goTo(MainActivity3.this,
-                        "com.example.zhengmin.navigation.activity.MainActivity",
-                        GOTO_SINGLE,bundle);}});
+                PageNavigation.getInstance().go(MainActivity3.this,
+                        GOTO_SINGLE, "com.example.zhengmin.navigation.activity.MainActivity",bundle);}});
     }
     @Override
     protected void onResume(){

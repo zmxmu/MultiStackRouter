@@ -8,16 +8,21 @@ import android.text.TextUtils;
 
 import com.syswin.msgseal.navigation.action.NormalGotoAction;
 import com.syswin.msgseal.navigation.action.SingleGotoAction;
+import com.syswin.msgseal.navigation.animator.PageTransferAnimator;
 import com.syswin.msgseal.navigation.entity.ActivityItem;
 import com.syswin.msgseal.navigation.entity.FragmentItem;
 import com.syswin.msgseal.navigation.entity.PageItem;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+import static com.syswin.msgseal.navigation.NavigationFlags.GOBACK_NORMAL;
+import static com.syswin.msgseal.navigation.NavigationFlags.GOBACK_SPECIFY;
 import static com.syswin.msgseal.navigation.NavigationFlags.GOTO_NORMAL;
 import static com.syswin.msgseal.navigation.NavigationFlags.GOTO_SINGLE;
+import static com.syswin.msgseal.navigation.NavigationHelper.ANIMATOR_FINISH;
 import static com.syswin.msgseal.navigation.NavigationHelper.ANIMATOR_SLIDE_LEFT_RIGHT;
 import static com.syswin.msgseal.navigation.NavigationHelper.ANIMATOR_START;
 
@@ -59,15 +64,6 @@ public class PageNavigation {
     }
 
     /**
-     * 获得页面路由map表
-     *
-     * @return 页面路由map表
-     */
-    public Map<String, Class> getRouterMap() {
-        return mRouterMap;
-    }
-
-    /**
      * 获得页面混合栈
      *
      * @return 页面混合栈
@@ -80,7 +76,7 @@ public class PageNavigation {
 
     private int getItemType(String path) {
         int result = PageItem.ROUTER_TYPE_NONE;
-        Class clz = mRouterMap.get(path);
+        Class clz = getPathClass(path);
         if (TextUtils.equals(clz.getSimpleName(), "FragmentContainerActivity")) {
             return PageItem.ROUTER_TYPE_CONTAINER;
         } else if ((Activity.class).isAssignableFrom(clz)) {
@@ -95,13 +91,13 @@ public class PageNavigation {
      * 根据path路由进行页面跳转，支持activity、fragment，支持跳转动画及跳转参数传递
      *
      * @param activity     发起跳转的activity
+     * @param actionType   跳转类型
      * @param path         要跳转到的页面路由参数
-     * @param actionType   跳转类型，支持normal和single两种模式
      * @param bundle       跳转参数
      * @param animatorType 跳转切换动效
      * @return 跳转成功与否的返回值
      */
-    public boolean goTo(Activity activity, String path, @NavigationFlags int actionType, Bundle bundle, int animatorType) {
+    public boolean go(Activity activity, @NavigationFlags int actionType, String path, Bundle bundle, int animatorType) {
         if (bundle == null) {
             bundle = new Bundle();
         }
@@ -111,30 +107,78 @@ public class PageNavigation {
                 return new NormalGotoAction(activity, path, bundle, getItemType(path)).gotoPage(animatorType);
             case GOTO_SINGLE:
                 return new SingleGotoAction(activity, path, bundle, getItemType(path)).gotoPage(animatorType);
+            case GOBACK_NORMAL:
+                return go(activity, GOBACK_NORMAL);
+            case GOBACK_SPECIFY:
+                if (mRouterMap.containsKey(path))
+                    return go(activity, GOTO_SINGLE, path, bundle);
+                else
+                    break;
         }
         return false;
     }
 
-    public boolean goTo(Activity activity, String path, @NavigationFlags int actionType, Bundle bundle) {
-        return goTo(activity, path, actionType, bundle, ANIMATOR_SLIDE_LEFT_RIGHT);
+    public boolean go(Activity activity, @NavigationFlags int actionType, String path, Bundle bundle) {
+        return go(activity, actionType, path, bundle, ANIMATOR_SLIDE_LEFT_RIGHT);
     }
 
-    /**
-     * 回退到指定path路由的页面，如果页面栈未找到该path，则不作跳转
-     *
-     * @param activity 发起跳转的activity
-     * @param path     要跳转到的页面路由参数
-     * @param bundle   跳转参数
-     * @return 跳转成功与否的返回值
-     */
-    public boolean goBack(Activity activity, String path, Bundle bundle) {
-        if (mRouterMap.containsKey(path)) {
-            return goTo(activity, path, GOTO_SINGLE, bundle);
+    public boolean go(Activity activity, @NavigationFlags int actionType) {
+        if (actionType == GOBACK_NORMAL) {
+            if(activity instanceof FragmentContainerActivity){
+                PageItem topItem = PageNavigation.getInstance().getTopItem();
+                int animatorArray[] = NavigationHelper.ANIMATOR_ARRAY[topItem.getAnimatorType()][ANIMATOR_FINISH];
+                final BaseFragment exitFragment;
+                if (topItem.getType() == PageItem.ROUTER_TYPE_FRAGMENT) {
+                    exitFragment = ((FragmentItem) topItem).getFragmentWR().get();
+                } else {
+                    exitFragment = null;
+                    activity.finish();
+                    activity.overridePendingTransition(animatorArray[0], animatorArray[1]);
+                }
+                final BaseFragment enterFragment = PageNavigation.getInstance().getSubTopFragment();
+                if (enterFragment == null) {
+                    exitFragment.onHide();
+                    activity.finish();
+                    activity.overridePendingTransition(animatorArray[0], animatorArray[1]);
+                } else {
+                    activity.getFragmentManager().beginTransaction().show(enterFragment).commit();
+                    enterFragment.onShow();
+                    PageTransferAnimator animator = NavigationHelper.initAnimator(activity, topItem.getAnimatorType());
+                    if (animator != null) {
+                        animator.animatorExit(exitFragment, enterFragment);
+                    }
+                }
+            }
+            else{
+                NavigationHelper.executeExitAnimator(activity);
+            }
+            return true;
         } else {
             return false;
         }
     }
 
+    /**
+     * 获得页面路由对应的page 类
+     * @param path     要跳转到的页面路由参数
+     * @return 页面路由map表
+     */
+    public Class getPathClass(String path){
+        Class result = mRouterMap.get(path);
+        if (result == null) {
+            try {
+                Class cls = Class.forName("com.syswin.msgseal.routeprocessor."+"Navigation_"+path.replace('.','_'));
+                Method method = cls.getMethod("getPageClass", null);
+                result = (Class)method.invoke(null, null);
+                if(result != null ){
+                    mRouterMap.put(path,result);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
     /**
      * 启动一个新的activity
      *
@@ -144,7 +188,7 @@ public class PageNavigation {
      * @param animatorType 跳转切换动效
      */
     public void startNewActivity(Activity activity, String path, Bundle bundle, int animatorType) {
-        Intent intent = new Intent(activity, mRouterMap.get(path));
+        Intent intent = new Intent(activity, getPathClass(path));
         intent.putExtras(bundle);
         activity.startActivity(intent);
         int animatorArray[] = NavigationHelper.ANIMATOR_ARRAY[animatorType][ANIMATOR_START];

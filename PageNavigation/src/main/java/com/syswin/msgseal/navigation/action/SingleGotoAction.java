@@ -45,7 +45,7 @@ public class SingleGotoAction extends GotoAction {
                         }
                     }
                 } else {
-                    PageNavigation.getInstance().goTo(mActivity, mPath, GOTO_NORMAL, mBundle);
+                    PageNavigation.getInstance().go(mActivity, GOTO_NORMAL, mPath, mBundle);
                 }
                 break;
             case PageItem.ROUTER_TYPE_FRAGMENT:
@@ -77,7 +77,7 @@ public class SingleGotoAction extends GotoAction {
 //                    enterFragment.getView().setX(0);
 
                 } else {
-                    PageNavigation.getInstance().goTo(mActivity, mPath, GOTO_NORMAL, mBundle, animatorType);
+                    PageNavigation.getInstance().go(mActivity, GOTO_NORMAL, mPath, mBundle, animatorType);
                 }
                 break;
         }

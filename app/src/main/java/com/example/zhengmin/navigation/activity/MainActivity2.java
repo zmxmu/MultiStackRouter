@@ -25,9 +25,8 @@ public class MainActivity2 extends BaseActivity {
 //                MainActivity.this.startActivity(intent);
                 Bundle bundle = new Bundle();
                 bundle.putString("key","test");
-                PageNavigation.getInstance().goTo(MainActivity2.this,
-                        "com.example.zhengmin.navigation.activity.MainActivity",
-                        GOTO_SINGLE,bundle);}});
+                PageNavigation.getInstance().go(MainActivity2.this,
+                        GOTO_SINGLE,"com.example.zhengmin.navigation.activity.MainActivity",bundle);}});
         findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,9 +34,8 @@ public class MainActivity2 extends BaseActivity {
 //                MainActivity.this.startActivity(intent);
                 Bundle bundle = new Bundle();
                 bundle.putString("key","test");
-                PageNavigation.getInstance().goTo(MainActivity2.this,
-                        "MainActivity3",
-                        GOTO_SINGLE,bundle);}});
+                PageNavigation.getInstance().go(MainActivity2.this,
+                        GOTO_SINGLE,"MainActivity3",bundle);}});
     }
     @Override
     protected void onResume(){

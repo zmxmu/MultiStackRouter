@@ -50,8 +50,8 @@ public class BlankFragmentA extends BaseFragment {
             public void onClick(View view) {
                 Bundle bundle =  new Bundle();
                 bundle.putString("key","abc");
-                PageNavigation.getInstance().goTo(getActivity(),"BlankFragmentB",
-                        GOTO_NORMAL,bundle);
+                PageNavigation.getInstance().go(getActivity(),
+                        GOTO_NORMAL,"BlankFragmentB",bundle);
             }
         });
         return view;

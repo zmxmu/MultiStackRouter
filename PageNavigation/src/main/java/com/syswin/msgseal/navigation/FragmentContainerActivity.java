@@ -5,12 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.syswin.msgseal.navigation.animator.PageTransferAnimator;
-import com.syswin.msgseal.navigation.entity.FragmentItem;
-import com.syswin.msgseal.navigation.entity.PageItem;
 
 import java.lang.reflect.Constructor;
-
-import static com.syswin.msgseal.navigation.NavigationHelper.ANIMATOR_FINISH;
 
 /**
  * Fragment容器activity
@@ -35,7 +31,7 @@ public class FragmentContainerActivity extends Activity {
      */
     private BaseFragment getFragment(String path) {
         try {
-            Class fragmentClazz = PageNavigation.getInstance().getRouterMap().get(path);
+            Class fragmentClazz = PageNavigation.getInstance().getPathClass(path);
             Constructor<?> constructor = fragmentClazz.getConstructor(new Class[0]);
             return (BaseFragment) constructor.newInstance(new Object[0]);
         } catch (Exception e) {
@@ -75,29 +71,7 @@ public class FragmentContainerActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        PageItem topItem = PageNavigation.getInstance().getTopItem();
-        int animatorArray[] = NavigationHelper.ANIMATOR_ARRAY[topItem.getAnimatorType()][ANIMATOR_FINISH];
-        final BaseFragment exitFragment;
-        if (topItem.getType() == PageItem.ROUTER_TYPE_FRAGMENT) {
-            exitFragment = ((FragmentItem) topItem).getFragmentWR().get();
-        } else {
-            exitFragment = null;
-            finish();
-            overridePendingTransition(animatorArray[0], animatorArray[1]);
-        }
-        final BaseFragment enterFragment = PageNavigation.getInstance().getSubTopFragment();
-        if (enterFragment == null) {
-            exitFragment.onHide();
-            finish();
-            overridePendingTransition(animatorArray[0], animatorArray[1]);
-        } else {
-            getFragmentManager().beginTransaction().show(enterFragment).commit();
-            enterFragment.onShow();
-            mAnimator = NavigationHelper.initAnimator(this, topItem.getAnimatorType());
-            if (mAnimator != null) {
-                mAnimator.animatorExit(exitFragment, enterFragment);
-            }
-        }
+        PageNavigation.getInstance().go(this,NavigationFlags.GOBACK_NORMAL);
     }
 
     @Override

@@ -25,9 +25,8 @@ public class MainActivity extends BaseActivity {
 //                MainActivity.this.startActivity(intent);
                 Bundle bundle = new Bundle();
                 bundle.putString("key","test");
-                PageNavigation.getInstance().goTo(MainActivity.this,
-                        "BlankFragmentA",
-                        GOTO_NORMAL,bundle);
+                PageNavigation.getInstance().go(MainActivity.this,
+                        GOTO_NORMAL,"BlankFragmentA",bundle);
             }
         });
     }
