@@ -8,12 +8,13 @@ import android.view.ViewGroup;
 
 import com.example.zhengmin.navigation.R;
 import com.syswin.msgseal.navigation.BaseFragment;
-import com.syswin.msgseal.navigation.RouterManager;
-import com.syswin.msgseal.navigation.action.NormalGotoAction;
-import com.syswin.msgseal.routeprocessor.PageRoute;
+import com.syswin.msgseal.navigation.PageNavigation;
+import com.syswin.msgseal.navigation.annotation.Page;
+
+import static com.syswin.msgseal.navigation.NavigationFlags.GOTO_NORMAL;
 
 
-@PageRoute(url = "BlankFragmentA")
+@Page(url = "BlankFragmentA")
 public class BlankFragmentA extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,8 +50,8 @@ public class BlankFragmentA extends BaseFragment {
             public void onClick(View view) {
                 Bundle bundle =  new Bundle();
                 bundle.putString("key","abc");
-                RouterManager.getInstance().goTo(getActivity(),"BlankFragmentB",
-                        RouterManager.GOTO_ACTION_NORMAL,bundle);
+                PageNavigation.getInstance().goTo(getActivity(),"BlankFragmentB",
+                        GOTO_NORMAL,bundle);
             }
         });
         return view;

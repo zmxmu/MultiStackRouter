@@ -1,16 +1,17 @@
 package com.example.zhengmin.navigation.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.example.zhengmin.navigation.R;
 import com.syswin.msgseal.navigation.BaseActivity;
-import com.syswin.msgseal.navigation.RouterManager;
-import com.syswin.msgseal.routeprocessor.PageRoute;
+import com.syswin.msgseal.navigation.PageNavigation;
+import com.syswin.msgseal.navigation.annotation.Page;
 
-@PageRoute(url = "MainActivity2")
+import static com.syswin.msgseal.navigation.NavigationFlags.GOTO_SINGLE;
+
+@Page(url = "MainActivity2")
 public class MainActivity2 extends BaseActivity {
 
     @Override
@@ -24,9 +25,9 @@ public class MainActivity2 extends BaseActivity {
 //                MainActivity.this.startActivity(intent);
                 Bundle bundle = new Bundle();
                 bundle.putString("key","test");
-                RouterManager.getInstance().goTo(MainActivity2.this,
+                PageNavigation.getInstance().goTo(MainActivity2.this,
                         "com.example.zhengmin.navigation.activity.MainActivity",
-                        RouterManager.GOTO_ACTION_SINGLE,bundle);}});
+                        GOTO_SINGLE,bundle);}});
         findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,9 +35,9 @@ public class MainActivity2 extends BaseActivity {
 //                MainActivity.this.startActivity(intent);
                 Bundle bundle = new Bundle();
                 bundle.putString("key","test");
-                RouterManager.getInstance().goTo(MainActivity2.this,
+                PageNavigation.getInstance().goTo(MainActivity2.this,
                         "MainActivity3",
-                        RouterManager.GOTO_ACTION_SINGLE,bundle);}});
+                        GOTO_SINGLE,bundle);}});
     }
     @Override
     protected void onResume(){
